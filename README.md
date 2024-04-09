@@ -1,2 +1,2 @@
 # Merrizee.github.io
-个人博客描述
+笔记书写，常用代码实战案例
