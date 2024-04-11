@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>VuePress</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.9f84806b.css" as="style"><link rel="preload" href="/assets/js/app.056d67dc.js" as="script"><link rel="preload" href="/assets/js/2.2a0cae2a.js" as="script"><link rel="preload" href="/assets/js/1.f798686b.js" as="script"><link rel="preload" href="/assets/js/25.4b398883.js" as="script"><link rel="prefetch" href="/assets/js/10.0720960b.js"><link rel="prefetch" href="/assets/js/11.32adc493.js"><link rel="prefetch" href="/assets/js/12.6b9ed61d.js"><link rel="prefetch" href="/assets/js/13.13de4055.js"><link rel="prefetch" href="/assets/js/14.3e65117c.js"><link rel="prefetch" href="/assets/js/15.5304afab.js"><link rel="prefetch" href="/assets/js/16.9ca9aae8.js"><link rel="prefetch" href="/assets/js/17.3dbcb51f.js"><link rel="prefetch" href="/assets/js/18.4c170722.js"><link rel="prefetch" href="/assets/js/19.d8afd0ae.js"><link rel="prefetch" href="/assets/js/20.10e47ab9.js"><link rel="prefetch" href="/assets/js/21.0ad1d6a3.js"><link rel="prefetch" href="/assets/js/22.88f9ef60.js"><link rel="prefetch" href="/assets/js/23.2ab751c5.js"><link rel="prefetch" href="/assets/js/24.6aede2b9.js"><link rel="prefetch" href="/assets/js/3.bc6bba9e.js"><link rel="prefetch" href="/assets/js/4.0a92875f.js"><link rel="prefetch" href="/assets/js/5.3b9be48d.js"><link rel="prefetch" href="/assets/js/6.7b96ebf4.js"><link rel="prefetch" href="/assets/js/7.7e58b9c4.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.8b826ef6.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.9f84806b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>本地同时配置github和gitee</p> <p>git下载及配置，略过，直接一路点安装，按默认的就行。</p> <p>配置 名称和邮箱号码：</p> <p>git config --global user.name &quot;你的名称&quot;</p> <p>git config --global user.email &quot;邮箱号&quot;</p> <p>生成github和gitee的 ssh key</p> <p>在git bash中：</p> <div class="language- extra-class"><pre><code>ssh-keygen -t rsa -C 'github邮箱号' -f ~/.ssh/id_rsa_github
+
+ ssh-keygen -t rsa -C 'gitee邮箱号' -f ~/.ssh/id_rsa_gitee
+</code></pre></div><p>会在C:\Users\目录下生成四个文件：id_rsa_gitee、id_rsa_gitee.pub、id_rsa_github、id_rsa_github.pub</p> <p>新建config文件，内容是</p> <p>Host gitee.com
+HostName gitee.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa_gitee</p> <p>Host github.com
+HostName github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa_github</p> <p>登录gitee和github，新建ssh配置，分别将刚才生成的id_rsa_gitee.pub、id_rsa_github.pub文件中的ssh内容复制到新建的ssh配置里，并保存。</p> <p>在本地cmd里使用ssh -T git@gitee.com  和  ssh -T git@github.com 分别测试，显示成功！</p> <p>若是有提示则直接一路回车，应该是初始化。</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.056d67dc.js" defer></script><script src="/assets/js/2.2a0cae2a.js" defer></script><script src="/assets/js/1.f798686b.js" defer></script><script src="/assets/js/25.4b398883.js" defer></script>
+  </body>
+</html>
