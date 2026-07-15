@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>让 Agent 学会规划与执行 | Malize&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/img/网站logo.png">
+    <meta name="description" content="技术博客，专注后端、架构设计、通用技术学习与总结。Java、设计模式、并发编程、Git、架构设计思想等技术文章。">
+    <meta name="keywords" content="技术博客,个人博客,Java,设计模式,并发编程,架构设计,Git,敏捷开发,学习方法,提示词工程,CIM,半导体">
+    <meta name="baidu-site-verification" content="7F55weZDDc">
+    <meta name="theme-color" content="#11a8cd">
+    
+    <link rel="preload" href="/assets/css/0.styles.981f38a5.css" as="style"><link rel="preload" href="/assets/js/app.10a775db.js" as="script"><link rel="preload" href="/assets/js/2.d12d855f.js" as="script"><link rel="preload" href="/assets/js/82.a11be4eb.js" as="script"><link rel="prefetch" href="/assets/js/10.8aa3ca38.js"><link rel="prefetch" href="/assets/js/100.2576b961.js"><link rel="prefetch" href="/assets/js/101.41b4eb33.js"><link rel="prefetch" href="/assets/js/102.1cd45c14.js"><link rel="prefetch" href="/assets/js/103.9839056f.js"><link rel="prefetch" href="/assets/js/104.37b1f1e1.js"><link rel="prefetch" href="/assets/js/105.92071b33.js"><link rel="prefetch" href="/assets/js/106.8a2986f3.js"><link rel="prefetch" href="/assets/js/107.dedb1fae.js"><link rel="prefetch" href="/assets/js/108.636bae51.js"><link rel="prefetch" href="/assets/js/109.0c60c0bd.js"><link rel="prefetch" href="/assets/js/11.8db65eb2.js"><link rel="prefetch" href="/assets/js/110.43525f4e.js"><link rel="prefetch" href="/assets/js/111.74f049ab.js"><link rel="prefetch" href="/assets/js/112.b554564d.js"><link rel="prefetch" href="/assets/js/113.5c0709b6.js"><link rel="prefetch" href="/assets/js/12.7387bde3.js"><link rel="prefetch" href="/assets/js/13.95a52ae2.js"><link rel="prefetch" href="/assets/js/14.71c622c1.js"><link rel="prefetch" href="/assets/js/15.bd1584ca.js"><link rel="prefetch" href="/assets/js/16.01deb329.js"><link rel="prefetch" href="/assets/js/17.28609a73.js"><link rel="prefetch" href="/assets/js/18.73496ff0.js"><link rel="prefetch" href="/assets/js/19.de382c16.js"><link rel="prefetch" href="/assets/js/20.c6ac9090.js"><link rel="prefetch" href="/assets/js/21.7305d81c.js"><link rel="prefetch" href="/assets/js/22.85e431d0.js"><link rel="prefetch" href="/assets/js/23.7965c6d9.js"><link rel="prefetch" href="/assets/js/24.97428710.js"><link rel="prefetch" href="/assets/js/25.035ada8d.js"><link rel="prefetch" href="/assets/js/26.43e15d12.js"><link rel="prefetch" href="/assets/js/27.65a20d81.js"><link rel="prefetch" href="/assets/js/28.a637cac5.js"><link rel="prefetch" href="/assets/js/29.955ad31e.js"><link rel="prefetch" href="/assets/js/3.c0051a43.js"><link rel="prefetch" href="/assets/js/30.4aa828ff.js"><link rel="prefetch" href="/assets/js/31.e1584996.js"><link rel="prefetch" href="/assets/js/32.c3d2019c.js"><link rel="prefetch" href="/assets/js/33.b01b0b84.js"><link rel="prefetch" href="/assets/js/34.d40ab6dc.js"><link rel="prefetch" href="/assets/js/35.b28ef73f.js"><link rel="prefetch" href="/assets/js/36.d6298563.js"><link rel="prefetch" href="/assets/js/37.9b3e268e.js"><link rel="prefetch" href="/assets/js/38.ba84c2c3.js"><link rel="prefetch" href="/assets/js/39.63d3ce02.js"><link rel="prefetch" href="/assets/js/4.1898dc28.js"><link rel="prefetch" href="/assets/js/40.7d0b9898.js"><link rel="prefetch" href="/assets/js/41.1f16c3eb.js"><link rel="prefetch" href="/assets/js/42.1b026337.js"><link rel="prefetch" href="/assets/js/43.8f16c399.js"><link rel="prefetch" href="/assets/js/44.f8ee83cc.js"><link rel="prefetch" href="/assets/js/45.39e9d5ac.js"><link rel="prefetch" href="/assets/js/46.2269791f.js"><link rel="prefetch" href="/assets/js/47.3ab15f37.js"><link rel="prefetch" href="/assets/js/48.ff53e97d.js"><link rel="prefetch" href="/assets/js/49.f67fcfb0.js"><link rel="prefetch" href="/assets/js/5.c566815e.js"><link rel="prefetch" href="/assets/js/50.e3f00e4e.js"><link rel="prefetch" href="/assets/js/51.2a8c5e27.js"><link rel="prefetch" href="/assets/js/52.f986800b.js"><link rel="prefetch" href="/assets/js/53.235c063a.js"><link rel="prefetch" href="/assets/js/54.c1fd92f2.js"><link rel="prefetch" href="/assets/js/55.0ba87dbe.js"><link rel="prefetch" href="/assets/js/56.a9f4e5c0.js"><link rel="prefetch" href="/assets/js/57.ce19014e.js"><link rel="prefetch" href="/assets/js/58.a865647d.js"><link rel="prefetch" href="/assets/js/59.40f9a2ae.js"><link rel="prefetch" href="/assets/js/6.750a16bc.js"><link rel="prefetch" href="/assets/js/60.4b4fe336.js"><link rel="prefetch" href="/assets/js/61.415a75d0.js"><link rel="prefetch" href="/assets/js/62.5427d3cb.js"><link rel="prefetch" href="/assets/js/63.2495e747.js"><link rel="prefetch" href="/assets/js/64.113ac554.js"><link rel="prefetch" href="/assets/js/65.606273e5.js"><link rel="prefetch" href="/assets/js/66.f4c0fdf3.js"><link rel="prefetch" href="/assets/js/67.e6054c7f.js"><link rel="prefetch" href="/assets/js/68.5261977a.js"><link rel="prefetch" href="/assets/js/69.f2e883bd.js"><link rel="prefetch" href="/assets/js/7.759fe2b6.js"><link rel="prefetch" href="/assets/js/70.d3905fed.js"><link rel="prefetch" href="/assets/js/71.853906a9.js"><link rel="prefetch" href="/assets/js/72.1053cad8.js"><link rel="prefetch" href="/assets/js/73.081d105c.js"><link rel="prefetch" href="/assets/js/74.2a24d82f.js"><link rel="prefetch" href="/assets/js/75.fbabc020.js"><link rel="prefetch" href="/assets/js/76.9ea6feaf.js"><link rel="prefetch" href="/assets/js/77.1107bdc8.js"><link rel="prefetch" href="/assets/js/78.bdf0d4e2.js"><link rel="prefetch" href="/assets/js/79.1c3a7b74.js"><link rel="prefetch" href="/assets/js/8.ca1c567a.js"><link rel="prefetch" href="/assets/js/80.da5c26b7.js"><link rel="prefetch" href="/assets/js/81.246ef973.js"><link rel="prefetch" href="/assets/js/83.5e5703fc.js"><link rel="prefetch" href="/assets/js/84.705a363e.js"><link rel="prefetch" href="/assets/js/85.105b6c5b.js"><link rel="prefetch" href="/assets/js/86.d6a76dc1.js"><link rel="prefetch" href="/assets/js/87.29f1dccc.js"><link rel="prefetch" href="/assets/js/88.d1ea45b2.js"><link rel="prefetch" href="/assets/js/89.b49819cd.js"><link rel="prefetch" href="/assets/js/9.3a8e90d8.js"><link rel="prefetch" href="/assets/js/90.4cfcb267.js"><link rel="prefetch" href="/assets/js/91.44472793.js"><link rel="prefetch" href="/assets/js/92.4354ee81.js"><link rel="prefetch" href="/assets/js/93.395f7261.js"><link rel="prefetch" href="/assets/js/94.025606dd.js"><link rel="prefetch" href="/assets/js/95.04887c05.js"><link rel="prefetch" href="/assets/js/96.527d78f0.js"><link rel="prefetch" href="/assets/js/97.d6c0482c.js"><link rel="prefetch" href="/assets/js/98.574ea2b7.js"><link rel="prefetch" href="/assets/js/99.55e69e08.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.981f38a5.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open have-rightmenu"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/网站logo.png" alt="Malize's blog" class="logo"> <span class="site-name can-hide">Malize's blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="通用技术" class="dropdown-title"><a href="/general-technology/" class="link-title">通用技术</a> <span class="title" style="display:none;">通用技术</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>设计模式</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/design/" class="nav-link">设计模式总览</a></li><li class="dropdown-subitem"><a href="/pages/14abe5/" class="nav-link">工作中用到的设计模式</a></li></ul></li><li class="dropdown-item"><h4>并发编程</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/general-technology/concurrent-programming/deadlock/" class="nav-link">死锁</a></li></ul></li><li class="dropdown-item"><h4>技术文档</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/docker-commands/" class="nav-link">Docker 核心命令大全</a></li><li class="dropdown-subitem"><a href="/pages/ad247c4332211551/" class="nav-link">Markdown 使用教程</a></li><li class="dropdown-subitem"><a href="/pages/61f2f95fd7da14fd/" class="nav-link">npm 常用命令</a></li><li class="dropdown-subitem"><a href="/pages/4e8444e2d534d14f/" class="nav-link">yaml 语言教程</a></li><li class="dropdown-subitem"><a href="/pages/117708e0af7f0bd9/" class="nav-link">Nodejs 递归读文件</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="大模型" class="dropdown-title"><a href="/llm/" class="link-title router-link-active">大模型</a> <span class="title" style="display:none;">大模型</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>构造问答系统</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/qa/background/" class="nav-link">项目背景</a></li><li class="dropdown-subitem"><a href="/llm/qa/build-bot/" class="nav-link">构建答疑机器人</a></li><li class="dropdown-subitem"><a href="/llm/qa/expand-knowledge/" class="nav-link">扩展知识范围</a></li><li class="dropdown-subitem"><a href="/llm/qa/optimize-prompt/" class="nav-link">优化提示词</a></li><li class="dropdown-subitem"><a href="/llm/qa/auto-evaluate/" class="nav-link">自动化评测</a></li><li class="dropdown-subitem"><a href="/llm/qa/optimize-rag/" class="nav-link">优化 RAG 应用</a></li></ul></li><li class="dropdown-item"><h4>构建 Agent 系统</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/agent/basics/" class="nav-link">Agent 基础与工具调用</a></li><li class="dropdown-subitem"><a href="/llm/agent/plan-execute/" aria-current="page" class="nav-link router-link-exact-active router-link-active">规划与执行</a></li><li class="dropdown-subitem"><a href="/llm/agent/multi-agent/" class="nav-link">多 Agent 团队协作</a></li><li class="dropdown-subitem"><a href="/llm/agent/memory/" class="nav-link">Memory 积累经验</a></li><li class="dropdown-subitem"><a href="/llm/agent/skill/" class="nav-link">Skill 可复用流程</a></li><li class="dropdown-subitem"><a href="/llm/agent/qwen-code/" class="nav-link">Qwen Code 实践</a></li></ul></li><li class="dropdown-item"><h4>交付上线</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/deploy/production/" class="nav-link">走向生产环境</a></li><li class="dropdown-subitem"><a href="/llm/deploy/distillation/" class="nav-link">模型蒸馏</a></li><li class="dropdown-subitem"><a href="/llm/deploy/deployment/" class="nav-link">部署模型</a></li><li class="dropdown-subitem"><a href="/llm/deploy/production-practice/" class="nav-link">生产实践</a></li><li class="dropdown-subitem"><a href="/llm/deploy/security/" class="nav-link">安全合规</a></li></ul></li><li class="dropdown-item"><h4>工具手册</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/tools/openclaw/" class="nav-link">OpenClaw 命令速查</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="业务积累" class="dropdown-title"><a href="/dev-tools/" class="link-title">业务积累</a> <span class="title" style="display:none;">业务积累</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>规范 &amp; 实践</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/code-standards/" class="nav-link">代码规范</a></li><li class="dropdown-subitem"><a href="/pages/8aec48/" class="nav-link">sharding-jdbc</a></li><li class="dropdown-subitem"><a href="/technology/cim/semiconductor-process/" class="nav-link">CIM 半导体行业</a></li><li class="dropdown-subitem"><a href="/pages/html/" class="nav-link">HTML 常用 meta</a></li><li class="dropdown-subitem"><a href="/pages/css/" class="nav-link">CSS 技巧收藏</a></li></ul></li><li class="dropdown-item"><h4>微服务</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/feign-principle/" class="nav-link">feign原理</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具" class="dropdown-title"><a href="/dev-tools/" class="link-title">工具</a> <span class="title" style="display:none;">工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Git</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/git/" class="nav-link">Git 笔记总览</a></li><li class="dropdown-subitem"><a href="/pages/9a7ee40fc232253e/" class="nav-link">Git 使用手册</a></li><li class="dropdown-subitem"><a href="/pages/922650/" class="nav-link">Git 修改分支名</a></li><li class="dropdown-subitem"><a href="/pages/git-team-standard/" class="nav-link">团队 Git 分支规范</a></li></ul></li><li class="dropdown-item"><h4>GitHub &amp; 博客</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/4c778760be26d8b3/" class="nav-link">GitHub 高级搜索技巧</a></li><li class="dropdown-subitem"><a href="/pages/6b9d359ec5aa5019/" class="nav-link">GitHub Actions 自动部署</a></li><li class="dropdown-subitem"><a href="/pages/41f87d890d0a02af/" class="nav-link">博客搭建 - 百度收录</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="收藏" class="dropdown-title"><a href="/favorites/" class="link-title">收藏</a> <span class="title" style="display:none;">收藏</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/beb6c0bd8a66cea6/" class="nav-link">优质网站</a></li><li class="dropdown-item"><!----> <a href="/pages/47cf96/" class="nav-link">前端库推荐</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="更多" class="dropdown-title"><a href="/more/" class="link-title">更多</a> <span class="title" style="display:none;">更多</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>成长学习</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/f2a556/" class="nav-link">学习方法</a></li><li class="dropdown-subitem"><a href="/pages/aea6571b7a8bae86/" class="nav-link">敏捷开发实战</a></li><li class="dropdown-subitem"><a href="/pages/831e6f/" class="nav-link">提示词工程</a></li></ul></li><li class="dropdown-item"><h4>生活</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/baaa02/" class="nav-link">实用技巧</a></li><li class="dropdown-subitem"><a href="/pages/2d615df9a36a98ed/" class="nav-link">心情杂货</a></li><li class="dropdown-subitem"><a href="/pages/dream-notes/" class="nav-link">梦境与灵感</a></li></ul></li><li class="dropdown-item"><h4>技术问题</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/interview-notes/" class="nav-link">面试问题备忘</a></li></ul></li><li class="dropdown-item"><h4>索引</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/categories/" class="nav-link">分类</a></li><li class="dropdown-subitem"><a href="/tags/" class="nav-link">标签</a></li><li class="dropdown-subitem"><a href="/archives/" class="nav-link">按年归档</a></li></ul></li></ul></div></div> <a href="https://github.com/Merrizee" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar-hover-trigger"></div> <aside class="sidebar" style="display:none;"><div class="blogger"><img src="/img/网站logo.png"> <div class="blogger-info"><h3>Malize</h3> <span>持续学习，持续成长</span></div></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="通用技术" class="dropdown-title"><a href="/general-technology/" class="link-title">通用技术</a> <span class="title" style="display:none;">通用技术</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>设计模式</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/design/" class="nav-link">设计模式总览</a></li><li class="dropdown-subitem"><a href="/pages/14abe5/" class="nav-link">工作中用到的设计模式</a></li></ul></li><li class="dropdown-item"><h4>并发编程</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/general-technology/concurrent-programming/deadlock/" class="nav-link">死锁</a></li></ul></li><li class="dropdown-item"><h4>技术文档</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/docker-commands/" class="nav-link">Docker 核心命令大全</a></li><li class="dropdown-subitem"><a href="/pages/ad247c4332211551/" class="nav-link">Markdown 使用教程</a></li><li class="dropdown-subitem"><a href="/pages/61f2f95fd7da14fd/" class="nav-link">npm 常用命令</a></li><li class="dropdown-subitem"><a href="/pages/4e8444e2d534d14f/" class="nav-link">yaml 语言教程</a></li><li class="dropdown-subitem"><a href="/pages/117708e0af7f0bd9/" class="nav-link">Nodejs 递归读文件</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="大模型" class="dropdown-title"><a href="/llm/" class="link-title router-link-active">大模型</a> <span class="title" style="display:none;">大模型</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>构造问答系统</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/qa/background/" class="nav-link">项目背景</a></li><li class="dropdown-subitem"><a href="/llm/qa/build-bot/" class="nav-link">构建答疑机器人</a></li><li class="dropdown-subitem"><a href="/llm/qa/expand-knowledge/" class="nav-link">扩展知识范围</a></li><li class="dropdown-subitem"><a href="/llm/qa/optimize-prompt/" class="nav-link">优化提示词</a></li><li class="dropdown-subitem"><a href="/llm/qa/auto-evaluate/" class="nav-link">自动化评测</a></li><li class="dropdown-subitem"><a href="/llm/qa/optimize-rag/" class="nav-link">优化 RAG 应用</a></li></ul></li><li class="dropdown-item"><h4>构建 Agent 系统</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/agent/basics/" class="nav-link">Agent 基础与工具调用</a></li><li class="dropdown-subitem"><a href="/llm/agent/plan-execute/" aria-current="page" class="nav-link router-link-exact-active router-link-active">规划与执行</a></li><li class="dropdown-subitem"><a href="/llm/agent/multi-agent/" class="nav-link">多 Agent 团队协作</a></li><li class="dropdown-subitem"><a href="/llm/agent/memory/" class="nav-link">Memory 积累经验</a></li><li class="dropdown-subitem"><a href="/llm/agent/skill/" class="nav-link">Skill 可复用流程</a></li><li class="dropdown-subitem"><a href="/llm/agent/qwen-code/" class="nav-link">Qwen Code 实践</a></li></ul></li><li class="dropdown-item"><h4>交付上线</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/deploy/production/" class="nav-link">走向生产环境</a></li><li class="dropdown-subitem"><a href="/llm/deploy/distillation/" class="nav-link">模型蒸馏</a></li><li class="dropdown-subitem"><a href="/llm/deploy/deployment/" class="nav-link">部署模型</a></li><li class="dropdown-subitem"><a href="/llm/deploy/production-practice/" class="nav-link">生产实践</a></li><li class="dropdown-subitem"><a href="/llm/deploy/security/" class="nav-link">安全合规</a></li></ul></li><li class="dropdown-item"><h4>工具手册</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/llm/tools/openclaw/" class="nav-link">OpenClaw 命令速查</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="业务积累" class="dropdown-title"><a href="/dev-tools/" class="link-title">业务积累</a> <span class="title" style="display:none;">业务积累</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>规范 &amp; 实践</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/code-standards/" class="nav-link">代码规范</a></li><li class="dropdown-subitem"><a href="/pages/8aec48/" class="nav-link">sharding-jdbc</a></li><li class="dropdown-subitem"><a href="/technology/cim/semiconductor-process/" class="nav-link">CIM 半导体行业</a></li><li class="dropdown-subitem"><a href="/pages/html/" class="nav-link">HTML 常用 meta</a></li><li class="dropdown-subitem"><a href="/pages/css/" class="nav-link">CSS 技巧收藏</a></li></ul></li><li class="dropdown-item"><h4>微服务</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/feign-principle/" class="nav-link">feign原理</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具" class="dropdown-title"><a href="/dev-tools/" class="link-title">工具</a> <span class="title" style="display:none;">工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Git</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/git/" class="nav-link">Git 笔记总览</a></li><li class="dropdown-subitem"><a href="/pages/9a7ee40fc232253e/" class="nav-link">Git 使用手册</a></li><li class="dropdown-subitem"><a href="/pages/922650/" class="nav-link">Git 修改分支名</a></li><li class="dropdown-subitem"><a href="/pages/git-team-standard/" class="nav-link">团队 Git 分支规范</a></li></ul></li><li class="dropdown-item"><h4>GitHub &amp; 博客</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/4c778760be26d8b3/" class="nav-link">GitHub 高级搜索技巧</a></li><li class="dropdown-subitem"><a href="/pages/6b9d359ec5aa5019/" class="nav-link">GitHub Actions 自动部署</a></li><li class="dropdown-subitem"><a href="/pages/41f87d890d0a02af/" class="nav-link">博客搭建 - 百度收录</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="收藏" class="dropdown-title"><a href="/favorites/" class="link-title">收藏</a> <span class="title" style="display:none;">收藏</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/beb6c0bd8a66cea6/" class="nav-link">优质网站</a></li><li class="dropdown-item"><!----> <a href="/pages/47cf96/" class="nav-link">前端库推荐</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="更多" class="dropdown-title"><a href="/more/" class="link-title">更多</a> <span class="title" style="display:none;">更多</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>成长学习</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/f2a556/" class="nav-link">学习方法</a></li><li class="dropdown-subitem"><a href="/pages/aea6571b7a8bae86/" class="nav-link">敏捷开发实战</a></li><li class="dropdown-subitem"><a href="/pages/831e6f/" class="nav-link">提示词工程</a></li></ul></li><li class="dropdown-item"><h4>生活</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/baaa02/" class="nav-link">实用技巧</a></li><li class="dropdown-subitem"><a href="/pages/2d615df9a36a98ed/" class="nav-link">心情杂货</a></li><li class="dropdown-subitem"><a href="/pages/dream-notes/" class="nav-link">梦境与灵感</a></li></ul></li><li class="dropdown-item"><h4>技术问题</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/interview-notes/" class="nav-link">面试问题备忘</a></li></ul></li><li class="dropdown-item"><h4>索引</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/categories/" class="nav-link">分类</a></li><li class="dropdown-subitem"><a href="/tags/" class="nav-link">标签</a></li><li class="dropdown-subitem"><a href="/archives/" class="nav-link">按年归档</a></li></ul></li></ul></div></div> <a href="https://github.com/Merrizee" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>阿里云大模型ACP整理</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>课程准备</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>构造问答系统</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>构建Agent系统</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/llm/agent/intro/" class="sidebar-link">从回答问题到解决问题</a></li><li><a href="/llm/agent/basics/" class="sidebar-link">Agent 基础与工具调用</a></li><li><a href="/llm/agent/plan-execute/" aria-current="page" class="active sidebar-link">让 Agent 学会规划与执行</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#🚄-前言" class="sidebar-link">🚄 前言</a></li><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#🍁-课程目标" class="sidebar-link">🍁 课程目标</a></li><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#_1-让-agent-学会反思" class="sidebar-link">1 让 Agent 学会反思</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_1-1-课程被意外修改" class="sidebar-link">1.1 课程被意外修改</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_1-2-大模型的幻觉" class="sidebar-link">1.2 大模型的幻觉</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_1-3-反思的两种模式" class="sidebar-link">1.3 反思的两种模式</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_1-3-1-模式一-自我反馈-self-review" class="sidebar-link">1.3.1 模式一：自我反馈 (Self Review)</a></li><li class="sidebar-sub-header level5"><a href="/llm/agent/plan-execute/#_1-3-1-1-方法一-单步指令式反思" class="sidebar-link">1.3.1.1 方法一：单步指令式反思</a></li><li class="sidebar-sub-header level5"><a href="/llm/agent/plan-execute/#_1-3-1-2-方法二-两步式-生成-反馈" class="sidebar-link">1.3.1.2 方法二：两步式&quot;生成-反馈&quot;</a></li><li class="sidebar-sub-header level5"><a href="/llm/agent/plan-execute/#_1-3-1-3-自我反馈的缺陷" class="sidebar-link">1.3.1.3 自我反馈的缺陷</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_1-3-2-模式二-外部反馈-external-feedback" class="sidebar-link">1.3.2 模式二：外部反馈 (External Feedback)</a></li><li class="sidebar-sub-header level5"><a href="/llm/agent/plan-execute/#_1-3-2-1-使用工具验证结果" class="sidebar-link">1.3.2.1 使用工具验证结果</a></li><li class="sidebar-sub-header level5"><a href="/llm/agent/plan-execute/#_1-3-2-2-其他验证方法" class="sidebar-link">1.3.2.2 其他验证方法</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_1-4-总结" class="sidebar-link">1.4 总结</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#_2-构建工作流" class="sidebar-link">2 构建工作流</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_2-1-单个-agent-处理复杂流程" class="sidebar-link">2.1 单个 Agent 处理复杂流程</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_2-2-失败原因分析" class="sidebar-link">2.2 失败原因分析</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-2-1-注意力机制的遗忘效应" class="sidebar-link">2.2.1 注意力机制的遗忘效应</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-2-2-错误的级联放大" class="sidebar-link">2.2.2 错误的级联放大</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-2-3-扁平化理解-vs-结构化需求" class="sidebar-link">2.2.3 扁平化理解 vs 结构化需求</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_2-3-工作流的几种模式" class="sidebar-link">2.3 工作流的几种模式</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-3-1-模式一-流水线-pipeline" class="sidebar-link">2.3.1 模式一：流水线 (Pipeline)</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-3-2-模式二-分支选择-branching" class="sidebar-link">2.3.2 模式二：分支选择 (Branching)</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-3-3-模式三-并行执行-parallel-execution" class="sidebar-link">2.3.3 模式三：并行执行 (Parallel Execution)</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-3-4-模式四-混合专家-mixture-of-agents-moa" class="sidebar-link">2.3.4 模式四：混合专家 (Mixture-of-Agents, MoA)</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-3-5-模式五-人机协作-human-in-the-loop-hitl" class="sidebar-link">2.3.5 模式五：人机协作 (Human-in-the-Loop, HITL)</a></li><li class="sidebar-sub-header level4"><a href="/llm/agent/plan-execute/#_2-3-6-选择合适的模式" class="sidebar-link">2.3.6 选择合适的模式</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_2-4-总结" class="sidebar-link">2.4 总结</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#_3-从固定流程到自主规划" class="sidebar-link">3 从固定流程到自主规划</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-1-固定工作流的局限性" class="sidebar-link">3.1 固定工作流的局限性</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-2-朴素解法-增加新的分支" class="sidebar-link">3.2 朴素解法：增加新的分支</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-3-让-agent-学会自主规划任务" class="sidebar-link">3.3 让 Agent 学会自主规划任务</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-4-执行-agent-生成的规划" class="sidebar-link">3.4 执行 Agent 生成的规划</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-5-进阶-让-agent-创建新工具" class="sidebar-link">3.5 进阶：让 Agent 创建新工具</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-6-何时选择自主规划" class="sidebar-link">3.6 何时选择自主规划？</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-7-案例分析-让-agent-操作网页" class="sidebar-link">3.7 案例分析：让 Agent 操作网页</a></li><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#_3-8-总结" class="sidebar-link">3.8 总结</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#🔥-课后小测验" class="sidebar-link">🔥 课后小测验</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/llm/agent/plan-execute/#🔍-单选题-3-2-1" class="sidebar-link">🔍 单选题 3.2.1</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/llm/agent/plan-execute/#✉️-评价反馈" class="sidebar-link">✉️ 评价反馈</a></li></ul></li><li><a href="/llm/agent/multi-agent/" class="sidebar-link">用多 Agent 实现团队协作</a></li><li><a href="/llm/agent/memory/" class="sidebar-link">用 Memory 让 Agent 积累经验</a></li><li><a href="/llm/agent/skill/" class="sidebar-link">用 Skill 将能力固化为可复用流程</a></li><li><a href="/llm/agent/eval-driven/" class="sidebar-link">用评测驱动 Agent 开发</a></li><li><a href="/llm/agent/qwen-code/" class="sidebar-link">Qwen Code 实践</a></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>交付上线</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>总结与展望</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>工具手册</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li></ul> </aside> <div><main class="page"><div class="theme-vdoing-wrapper "><div class="articleInfo-wrap" data-v-06225672><div class="articleInfo" data-v-06225672><ul class="breadcrumbs" data-v-06225672><li data-v-06225672><a href="/" title="首页" class="iconfont icon-home router-link-active" data-v-06225672></a></li> <li data-v-06225672><a href="/llm/#大模型" data-v-06225672>大模型</a></li><li data-v-06225672><a href="/llm/#阿里云大模型ACP整理" data-v-06225672>阿里云大模型ACP整理</a></li><li data-v-06225672><a href="/llm/#构建Agent系统" data-v-06225672>构建Agent系统</a></li></ul> <div class="info" data-v-06225672><div title="作者" class="author iconfont icon-touxiang" data-v-06225672><a href="https://github.com/Merrizee" target="_blank" title="作者" class="beLink" data-v-06225672>malize</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-06225672><a href="javascript:;" data-v-06225672>2026-02-03</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><div class="right-menu-wrapper"><div class="right-menu-margin"><div class="right-menu-title">目录</div> <div class="right-menu-content"></div></div></div> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABH1JREFUSA3tVl1oHFUUPmdmd2ltklqbpJDiNnXFmgbFktho7YMPNiJSSZM0+CAYSkUELVhM6YuwIPpgoOKDqOBDC0XE2CQoNtQXBUFTTcCi+Wlh1V2TQExsUzcltd3M9Tt3ZjZzZ2fT+OJTL8yeM+eee757fmeJbq//KQL8X3DUSFOcfr7cRsRtxNQMWueeVzOkaITIGqQHNg5y8+jNW9ldM7A6nTpAjuolUikAwq7CE3WcM2RRDz+XGVgN3FptU/aUSlvq9Pa3iZ1+sgAqJyyAFqkipd9dqiwHF3P65YycLWc/6sqGrvoEoIp6DOFaX5h6+dnfjkWprwqsPk0dUGq5vySwDImC10KxFHgGL1SWoc92O3eVht09qdXNH11I2SsTsJYqMWzihqGMi+A+Garf3BAuuLI5oGlULyNfyB/HYNujwktOfRrMr5t77NmevqaUopx0grnKAyvVpmwUDB4x6FPXuGvYLTDwWsejwgtgkYKPqRJg8SV6xaiZ3ZTppGneS4yfH5/66fZSDHv+QZci/+h5c5UHtpy67JUqGppM0sh0Nc1dW6/N1W5Yoqat8/TU/VnadmdeW2PLLSyh0cvxBs3KbqTmwYPpxN4do/mzE8nEpvX/UMu2Wbp74zUAK5q6WkHns7V0eWkdPbPzd3rxkTGybadYySumVzhcaJFbs5UrEkQ/+CK8gF5dnh/6ciIZ73gwQ927L1IitoxKLXYP3SjYdOrHHfTZhRRlFyrorafPk20B3HPD1y2G3qKZME5Jcf3t/HUC13/8tSd++vqFveMUTwAUxSUFI1QekR1+bIze3D9MF2aq6cPvG72CgnldWCFqyRw3lwH8ZMerjTD9ElRO7Gv44wNpC90aASqGfVlz/Rx17srQ57/UU26hkhQqUB7dBR71WmzQhHUnblGmVOEw0jhbV1n9OlXUDCIRGaNV5Jp43N516fN7JmnTHdfp7Hgy0luO4aMhtkLL8Bi3bUWYvzh5Mn1dTxrL6QmGuRhGL/TiTTxRoEdTszSaq9GR0NGA3KdkOz3hqSV3MIDhQ5IVX/Ivx3umBti2es2h4eZby7x8br1rkf7Mo90AqC8aQ3sJeNzqFRu+vSANAQe3PL7l0HGOAdwDCeZYvNKeoZp1Qfs6Aipndh86HmFRi0LAnEO47wsqM6cdfjh3jBPUzhZy7nvlUfFsamED1VQt6aISHVymXZ/B2aCtIG8AI8xfobj2d3en1wWVhOeHELKmLQ1s211s88comkv4UCwWyF787mJdYXtNfhKAXVqnKTq8QZvGAGGOfaTo5pGZ/PwbUCr5+DPr/1J92JNHr9aOl/F3iI5+O1nfybsGxoimvZ3ViWSluDITw3P37mypheDIPY0tw7+O/5ApbkYw+zpfaUVu32Pi98+defdUhEpZkRFq0aqyNh9FuL9hpYbEm6iwi0z2REd09ZmyENEbuhjDWzKvZXTqKYaBIr3tt5kuPtQBZFvEUwHt60vfCNu41XsksH9Ij1BMMz1Y0OOunHNShFIP5868g5zeXmuLwL9T4b6Q2+KejgAAAABJRU5ErkJggg==">让 Agent 学会规划与执行<!----></h1>  <div class="theme-vdoing-content content__default"><h1 id="_3-2-让agent学会规划与执行"><a href="#_3-2-让agent学会规划与执行" class="header-anchor">#</a> 3.2 让Agent学会规划与执行</h1> <h2 id="🚄-前言"><a href="#🚄-前言" class="header-anchor">#</a> 🚄 前言</h2> <p>Agent学会了使用工具，但面对复杂任务时，它容易犯两类错误：一是不验证自己的输出（幻觉），二是一口气做所有事导致后面越做越乱。这节课你将学会如何让Agent先反思、再规划、再执行，从&quot;蛮力做事&quot;进化到&quot;有章法地做事&quot;。</p> <h2 id="🍁-课程目标"><a href="#🍁-课程目标" class="header-anchor">#</a> 🍁 课程目标</h2> <p><strong>你将学到：</strong></p> <ul><li>理解Agent自我反思的两种模式：自我反馈和外部验证</li> <li>掌握工作流的五种编排模式：流水线、分支、并行、MoA、人机协作</li> <li>Plan &amp; Execute：Agent先规划再执行，代码即计划</li> <li>判断何时用固定流程、何时用自主规划</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code># 加载百炼的 API Key 用于调用千问大模型
+import os, sys
+os.chdir(os.path.join(os.path.dirname(os.path.abspath('')), 'course_core'))
+sys.path.insert(0, os.getcwd())
+
+from openai import OpenAI
+from config.load_key import load_key
+load_key()
+
+client = OpenAI(
+    api_key=os.getenv(&quot;DASHSCOPE_API_KEY&quot;),
+    base_url=&quot;https://dashscope.aliyuncs.com/compatible-mode/v1&quot;,
+)
+print(f&quot;API Key 已加载：{os.environ['DASHSCOPE_API_KEY'][:5]}*****&quot;)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><h2 id="_1-让-agent-学会反思"><a href="#_1-让-agent-学会反思" class="header-anchor">#</a> 1 让 Agent 学会反思</h2> <h3 id="_1-1-课程被意外修改"><a href="#_1-1-课程被意外修改" class="header-anchor">#</a> 1.1 课程被意外修改</h3> <p>有一位同事写了一篇 notebook 格式的交互式课程，里面有一些可执行的 Python 代码。为了让课程的语言更生动，你让机器人帮忙润色整篇文档的语言风格。</p> <p>经过润色后，课程的语言更加流畅、结构更加清晰了。但当他尝试运行课程里的代码示例时，却发现了一个关键问题：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code># 课程的原始代码
+def get_user_data(usr_id: str):
+  # ... some logic ...
+  return f&quot;Data for {usr_id}&quot;
+
+# 正常执行
+print(get_user_data(usr_id=&quot;u-123&quot;))
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><p>机器人在“优化”语言风格时，悄悄地“修正”了代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code># Agent 润色后的代码
+def get_user_data(user_id: str):
+  # ... some logic ...
+  return f&quot;Data for {user_id}&quot;
+
+# 运行时报错！
+# print(get_user_data(usr_id=&quot;u-123&quot;)) 
+# TypeError: get_user_data() got an unexpected keyword argument 'usr_id'
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><p>机器人认为 <code>user_id</code> 比 <code>usr_id</code> 更规范，于是帮忙“优化”了函数定义，但这却导致调用函数的代码报错了，因为调用处的参数名没有一起改。</p> <h3 id="_1-2-大模型的幻觉"><a href="#_1-2-大模型的幻觉" class="header-anchor">#</a> 1.2 大模型的幻觉</h3> <p>你该如何解决这个问题呢？一个最直接的想法，就是告诉机器人要“小心一点”。试着在它的指令（System Prompt）里加上一句警告：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>你是一位顶尖的课程作家，负责润色 Jupyter Notebook 格式的课程。
+请优化文本，使其更具吸引力。
+**重要：请绝对不要修改任何代码块中的内容，包括变量名、参数名和函数调用。**
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>但这样做效果不佳，因为你无法通过罗列禁止事项来覆盖所有可能的场景，即使你明确禁止了某些修改，大模型仍然有一定概率把原本正确的内容&quot;顺手&quot;改错。</p> <p>其原因是，由于大模型存在幻觉，它的每一次生成都可能引入新的错误，而且缺乏验证和修正的内在机制。这种&quot;优化&quot;不仅限于变量名，还可能发生在</p> <ul><li>命令行参数（将 <code>-p 8080</code> 改为 <code>--port 8080</code>）</li> <li>API 版本号（将 <code>v1/users</code> 更新为 <code>v2/users</code>）</li> <li>示例值（将演示用的 IP 地址 <code>192.168.1.10</code> 替换为 <code>127.0.0.1</code>）</li></ul> <p>等任何它认为&quot;不够规范&quot;的地方。最终，一篇经过&quot;优化&quot;却混杂了错误的课程，会让学员陷入无尽的调试循环。</p> <p>因此，你自然会想到另一种思路：让大模型输出前自己检查一遍，就像在考试时，人类在交卷前会检查一遍答案。这正是目前业界解决此类问题的一种方法，我们称之为<strong>反思（Reflection）</strong>。</p> <h3 id="_1-3-反思的两种模式"><a href="#_1-3-反思的两种模式" class="header-anchor">#</a> 1.3 反思的两种模式</h3> <h4 id="_1-3-1-模式一-自我反馈-self-review"><a href="#_1-3-1-模式一-自我反馈-self-review" class="header-anchor">#</a> 1.3.1 模式一：自我反馈 (Self Review)</h4> <p>要实现反思，最直接的思路是让模型自己审视输出结果。这里有两种实现方式，一种简单但效果有限，另一种更复杂但效果显著。</p> <h5 id="_1-3-1-1-方法一-单步指令式反思"><a href="#_1-3-1-1-方法一-单步指令式反思" class="header-anchor">#</a> 1.3.1.1 方法一：单步指令式反思</h5> <p>这是一种最容易想到的方法，你尝试在一次模型调用中，通过 Prompt 指示模型在生成答案的同时进行反思。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>## 角色
+你是一位顶尖的课程作家。
+
+## 任务
+1. 润色课程的语言表达，输出润色后的全文内容。
+
+2. 反思润色后的内容：
+    ⁃ 是否符合写作规范。
+    ⁃ 除了语言表达，其他内容是否被意外修改。
+输出反思的结果和修改建议。
+
+3. 对照建议修改课程，输出修改后的全文内容。
+
+## 课程初稿
+{original_notebook_content}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><img src="https://img.alicdn.com/imgextra/i4/O1CN01FDYKQT1dp7okaEHNo_!!6000000003784-55-tps-738-127.svg" width="700"> <p>这种方法有其优势：模型可以在生成过程中及时发现问题并纠错，同时上下文保持连贯，减少了多轮往返的开销。</p> <p>但也存在明显的缺陷：反思和生成绑定在一起时，模型容易带着相同的思维偏差进行自我验证，陷入&quot;自证正确&quot;的怪圈。例如，如果它在第一步就把 <code>usr_id</code> 改成了 <code>user_id</code>，那么在第二步反思时，它很可能会认为这是一次&quot;规范化改进&quot;而非错误。</p> <h5 id="_1-3-1-2-方法二-两步式-生成-反馈"><a href="#_1-3-1-2-方法二-两步式-生成-反馈" class="header-anchor">#</a> 1.3.1.2 方法二：两步式&quot;生成-反馈&quot;</h5> <p>你也可以将反思过程独立出来，把任务拆分成两次模型调用，一次负责生成，另一次负责审查。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code># 第一次调用 (写作 Agent)
+你是一位顶尖的课程作家，负责润色 Jupyter Notebook 格式的课程。请优化文本，使其更具吸引力。
+
+【课程初稿】:
+{original_notebook_content}
+
+# 第二次调用 (技术审查 Agent)
+你是一个严苛的技术审查员。你的任务是审查润色后的课程内容，确保：
+1. 润色后的课程符合写作规范。
+2. 代码、配置、数据等技术内容没有被意外修改。
+
+请比对【原始内容】和【润色后内容】：
+- 如果只修改了文案表达，代码等技术内容完全一致（或只有注释、格式等非功能性变化），就回答&quot;通过&quot;。
+- 如果发现任何技术内容被修改（如代码逻辑、变量名、参数、配置项等），就回答&quot;不通过&quot;，并指出具体是哪处内容被意外修改了。
+
+【原始内容】:
+{original_notebook_content}
+
+【润色后内容】:
+{draft_content}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><img src="https://img.alicdn.com/imgextra/i4/O1CN016EcX4u1xzvTOhRTCC_!!6000000006515-55-tps-976-243.svg" width="700"> <p>由于审查 Agent 的视角与写作 Agent 不同，这种方法能有效避免大部分角色偏见。你甚至可以设置多个专项审查 Agent——事实审查、逻辑审查、风格审查、安全审查，这不仅提高了审查的全面性，还便于后期进行 A/B 测试和指标统计。</p> <p>但这种方法也有明显的成本：每增加一个审查 Agent 就多一轮模型调用，token 消耗更高。</p> <blockquote><p><strong>扩展阅读：成本与优化</strong></p> <p><strong>这笔成本值得吗？</strong></p> <p>&quot;生成-反馈&quot;循环看似增加了调用次数，但我们不能简单地将&quot;一次高质量输出&quot;与&quot;一次低质量输出&quot;的成本进行比较。更公平的比较是：为获得一个&quot;可用&quot;的答案，两种路径的总成本是多少？</p> <p>如果单次调用无法有效解决问题，那么它的成本无论多低，都是一种浪费。相反，通过&quot;生成-反馈&quot;的两步调用，让中端模型达到顶级模型 95% 的效果，就能用更低的成本实现几乎相同的业务价值。</p> <p><strong>如何进一步降低成本？</strong></p> <p>在&quot;生成-反馈&quot;循环中，原始课程文档会在多次模型调用中重复传递——写作 Agent 需要它，审查 Agent 也需要它，修正阶段可能还要再用一次。如果文档很长（比如包含几十个代码示例的完整课程），这种重复会带来显著的 token 消耗。</p> <p>阿里云百炼提供了<a href="https://help.aliyun.com/zh/model-studio/context-cache">上下文缓存（Context Cache）</a>机制来解决这个问题：首次调用时缓存共享内容（如原始文档），后续调用检测到相同前缀就直接复用，缓存命中部分按标准单价的 20% 计费。</p> <p>你可以这样组织 Prompt 结构：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>[缓存部分 - 所有调用都相同]
+## 原始课程文档
+{很长的原始notebook内容}
+
+[变化部分 - 每次调用不同]
+## 任务
+{写作指令 / 审查指令 / 修正指令}
+
+## 待处理内容
+{润色后的草稿 / 审查反馈等}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>通过这种方式，原始文档的 token 在首次调用时按标准单价计费，在后续审查、修正环节则享受缓存折扣，从而显著降低多轮调用的总成本。</p></blockquote> <p>需要注意的是，应该让审查 Agent 只负责&quot;发现问题&quot;而不是&quot;直接重写&quot;。如果让它直接修改内容，可能会破坏原文的表达意图或引入新的错误。</p> <p>所以，你最好将审查结果 (<code>review_result</code>) 反馈给写作Agent，让它根据反馈继续修改回答。这就形成了一个“生成—反馈”循环，机器人的回答忠实度得到了显著提升。</p> <h5 id="_1-3-1-3-自我反馈的缺陷"><a href="#_1-3-1-3-自我反馈的缺陷" class="header-anchor">#</a> 1.3.1.3 自我反馈的缺陷</h5> <p>自我反馈更适合静态文本层面的比对（如检查代码是否被意外修改），但当你需要验证代码是否能正常运行时，这种模式的效果比较差。</p> <p>这是因为大模型擅长判断代码&quot;看起来是否合理&quot;，但无法像编译器那样进行精确的语义验证。更关键的是，模型无法真正执行代码——它看不到运行日志、捕捉不到异常报错、也感知不到依赖库版本冲突或环境配置问题。</p> <p>要解决这个问题，我们需要引入外部反馈机制。</p> <h4 id="_1-3-2-模式二-外部反馈-external-feedback"><a href="#_1-3-2-模式二-外部反馈-external-feedback" class="header-anchor">#</a> 1.3.2 模式二：外部反馈 (External Feedback)</h4> <h5 id="_1-3-2-1-使用工具验证结果"><a href="#_1-3-2-1-使用工具验证结果" class="header-anchor">#</a> 1.3.2.1 使用工具验证结果</h5> <p>外部反馈的核心思路是：把大模型的生成结果放到真实环境中执行，再把执行结果（成功/失败、错误信息、测试报告等）反馈给模型，让它根据这些落地的事实进行迭代修正。</p> <p>如果说自我反馈是“我认为我做得对不对”，那么外部反馈就是“事实证明我做得对不对”。</p> <p>回到我们的 Jupyter Notebook 课程润色场景。假设课程中包含一些代码示例，我们希望在润色文案的同时，确保代码仍然能够正常运行。</p> <p>这要求我们将上一章学习的<strong>工具使用 (Tool Use)</strong> 与反思机制结合起来。在这里，最直接的外部反馈来源，就是一个代码执行工具。AgentScope 内置了一个强大的 <code>execute_python_code</code> 工具，它为 Agent 提供了一个安全的代码解释器环境，使其能够真实地执行 Python 代码并获取结果或错误信息。</p> <p>具体的工作流程如下：</p> <ol><li><strong>生成</strong>：写作 Agent 润色文档，输出了包含代码的 notebook 内容。</li> <li><strong>与外部工具交互</strong>：系统自动提取出代码块，并调用 <code>execute_python_code</code> 工具尝试执行它。</li> <li><strong>获取外部反馈</strong>：工具返回执行结果，假设遇到了错误：<code>TypeError: get_user_data() got an unexpected keyword argument 'usr_id'</code>。</li> <li><strong>修正</strong>：Agent 接收到这份错误反馈，它现在明确地知道代码出现了什么问题。基于这份反馈，它会生成修正后的代码。</li></ol> <img src="https://img.alicdn.com/imgextra/i3/O1CN01p4pTbF1FHBgu1CmSE_!!6000000000461-55-tps-1532-196.svg" width="700"> <p>下面使用 AgentScope 实现了一个简单的例子。AgentScope 内置的 <code>execute_python_code</code> 工具无需手动创建工具函数，只需通过 <code>toolkit.register_tool_function(execute_python_code)</code> 注册即可。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;
+使用 AgentScope 实现外部反馈的反思机制（简化版）
+场景：润色 Jupyter Notebook 课程，通过代码解释器验证代码正确性
+&quot;&quot;&quot;
+
+import asyncio
+import os
+from textwrap import dedent
+
+from agentscope.agent import ReActAgent
+from agentscope.formatter import DashScopeChatFormatter
+from agentscope.memory import InMemoryMemory
+from agentscope.message import Msg
+from agentscope.model import DashScopeChatModel
+from agentscope.tool import Toolkit, execute_python_code
+
+
+# ============================================================
+# 创建写作 Agent（装备代码解释器工具）
+# ============================================================
+
+def create_writer_agent() -&gt; ReActAgent:
+    &quot;&quot;&quot;创建负责润色课程内容的写作 Agent&quot;&quot;&quot;
+    
+    # 创建工具包并注册内置的代码执行工具
+    toolkit = Toolkit()
+    toolkit.register_tool_function(execute_python_code)
+    
+    writer = ReActAgent(
+        name=&quot;Writer&quot;,
+        sys_prompt=dedent(&quot;&quot;&quot;你是一位技术课程作家，负责润色 Jupyter Notebook 课程。
+
+            任务要求：
+            1. 优化文本表达，使其更流畅生动
+            2. **绝对不要修改代码中的变量名、函数名、参数名**
+            3. 润色后，使用 execute_python_code 工具验证所有代码块
+            4. 如果代码执行失败，检查是否意外修改了代码并修正
+
+            记住：只改文案，不改代码逻辑！
+        &quot;&quot;&quot;),
+        model=DashScopeChatModel(
+            model_name=&quot;qwen-plus&quot;,
+            api_key=os.environ.get(&quot;DASHSCOPE_API_KEY&quot;),
+            stream=False,
+        ),
+        formatter=DashScopeChatFormatter(),
+        toolkit=toolkit,
+        memory=InMemoryMemory(),
+        max_iters=10,  # 最多迭代 10轮（示例配置，实际应根据任务复杂度和成本预算调整）
+    )
+    
+    return writer
+
+
+# ============================================================
+# 主流程
+# ============================================================
+
+async def main():
+    &quot;&quot;&quot;主函数 - 演示外部反馈的反思机制&quot;&quot;&quot;
+    
+    # 原始课程内容（包含&quot;不规范&quot;的变量名 usr_id）
+    original_notebook = &quot;&quot;&quot;
+# Python 函数示例课程
+
+本节学习如何定义和调用函数。
+
+## 定义函数
+
+def get_user_data(usr_id: str):
+    return f&quot;Data for {usr_id}&quot;
+
+## 调用函数
+
+print(get_user_data(usr_id=&quot;u-123&quot;))
+
+## 小结
+
+你学会了定义和调用 Python 函数。
+&quot;&quot;&quot;
+    
+    print(&quot;=&quot;*60)
+    print(&quot;原始课程内容：&quot;)
+    print(&quot;=&quot;*60)
+    print(original_notebook)
+    
+    # 创建 Agent
+    writer = create_writer_agent()
+    
+    # 发送润色请求
+    user_msg = Msg(
+        name=&quot;user&quot;,
+        content=dedent(f&quot;&quot;&quot;请润色以下课程内容，要求：
+
+            {original_notebook}
+
+            1. 让文案更生动易懂
+            2. **不要修改代码中的变量名、函数名**
+            3. 润色后用 execute_python_code 验证代码能否运行
+            4. 如果报错，说明你可能改错了代码，请修正
+        &quot;&quot;&quot;),
+        role=&quot;user&quot;
+    )
+    
+    print(&quot;\n&quot; + &quot;=&quot;*60)
+    print(&quot;Agent 开始工作...&quot;)
+    print(&quot;=&quot;*60)
+    
+    # Agent 自动进行：润色 → 验证 → 修正 → 再验证
+    result = await writer(user_msg)
+    
+    print(&quot;\n&quot; + &quot;=&quot;*60)
+    print(&quot;最终输出：&quot;)
+    print(&quot;=&quot;*60)
+    print(result.get_text_content())
+
+try:
+    await main()
+except NameError:
+    asyncio.run(main())
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br></div></div><p>通过这种方式，Agent 可以使用外部工具验证输出结果，从而实现了高效、精准的自我修正。</p> <h5 id="_1-3-2-2-其他验证方法"><a href="#_1-3-2-2-其他验证方法" class="header-anchor">#</a> 1.3.2.2 其他验证方法</h5> <p>除了代码执行，这种模式还能应用于其他需要客观事实的场景：</p> <ul><li><p><strong>场景：优化科研论文中的 Matplotlib 图表</strong></p> <ul><li><strong>问题</strong>：你要求 Agent 为一篇科研论文生成数据可视化代码。Agent 生成了一段看起来&quot;合理&quot;的 Matplotlib 代码，包含了正确的数据处理逻辑和绘图函数调用。但代码能运行不代表图表效果好——实际渲染出来的图可能存在坐标轴标签重叠、图例遮挡数据点、字体过小难以辨认、配色不适合打印等问题。</li> <li><strong>外部反馈解法</strong>：系统调用<strong>代码解释器</strong>工具执行 Matplotlib 代码，并返回生成的图片文件。<strong>Agent 通过视觉输入接收到实际渲染的图表</strong>，能够直观地发现视觉问题（例如&quot;x 轴标签重叠了&quot;&quot;图例挡住了关键数据点&quot;），然后针对性地调整代码参数（如 <code>plt.xticks(rotation=45)</code> 旋转标签、<code>bbox_to_anchor</code> 调整图例位置、增大 <code>fontsize</code> 等）。这个&quot;生成-渲染-调整&quot;的循环，确保最终图表符合学术出版的质量要求。</li></ul></li> <li><p><strong>场景：核对复杂计算题的答案</strong></p> <ul><li><strong>问题</strong>：在一节量子力学课程中，你需要出一道练习题：“计算一个电子（质量 ≈ 9.11e-31 kg）被限制在长度为 1 纳米（1e-9 m）的一维无限深势阱中时，其基态能量是多少焦耳？（普朗克常数 h ≈ 6.626e-34 J·s）” Agent 在解题步骤中可能由于复杂的指数运算而出错。</li> <li><strong>外部反馈解法</strong>：系统识别出需要计算的表达式 <code>(1**2 * (6.626e-34)**2) / (8 * 9.11e-31 * (1e-9)**2)</code>，并将其交给<strong>代码解释器</strong>或<strong>计算器</strong>工具执行。工具返回精确的数值结果。这份客观的计算结果会作为反馈，让 Agent 修正最终的答案。</li></ul></li> <li><p><strong>场景：结构化输出校验</strong></p> <ul><li><strong>问题</strong>：你要求 Agent 生成符合特定 JSON Schema 的配置文件，但它可能遗漏必填字段或使用错误的数据类型。</li> <li><strong>外部反馈解法</strong>：系统使用 Pydantic 等库对生成的 JSON 进行校验。当输出不符合 Schema 时，校验器返回详细的错误报告（如&quot;字段 'timeout' 应为整数而非字符串&quot;）。这份客观、精准的反馈让 Agent 能够修正输出，直到完全符合预定义的结构。这个&quot;生成-校验-反馈&quot;的循环，是反思机制在实践中最常见、最基础的应用之一。</li></ul></li></ul> <p>最后，如何选择这两种反馈模式呢？这取决于你的具体需求、预算和可接受的错误率。比如，如果只是润色一篇没有代码的博客文章，那么可能根本不需要反思。但如果是修改一份包含几十个代码示例的交互式课程，那么引入一个基于代码解释器的“外部反馈”循环，就是确保文档质量、避免发布事故的必要投资。</p> <h3 id="_1-4-总结"><a href="#_1-4-总结" class="header-anchor">#</a> 1.4 总结</h3> <p>让我们回顾一下你在本节学到的知识：</p> <ul><li><strong>直接指令的局限性</strong>：直接在 Prompt 中要求大模型“更小心”或“不许改代码”通常效果不佳，因为模型以生成“更合理”的文本为目标，有时会“好心办坏事”。</li> <li><strong>“反思”的核心思路</strong>：模仿人类的“元认知”，让模型有机会审视和评估自己已经生成的完整内容，从而发现并修正错误。这比简单的指令更可靠。</li> <li><strong>自我反馈 vs. 外部反馈</strong>：“自我反馈”是让另一个 Agent 检查初稿，适合主观评估；“外部反馈”是借助工具（如代码解释器）来验证结果，适合需要客观事实的场景。</li> <li><strong>工程实现：“生成-反馈”循环</strong>：实现“反思”的有效方法是采用多次调用：第一次生成初稿，后续调用则负责评估初稿、提供反馈，并基于反馈进行修改。</li></ul> <h2 id="_2-构建工作流"><a href="#_2-构建工作流" class="header-anchor">#</a> 2 构建工作流</h2> <h3 id="_2-1-单个-agent-处理复杂流程"><a href="#_2-1-单个-agent-处理复杂流程" class="header-anchor">#</a> 2.1 单个 Agent 处理复杂流程</h3> <p>周一早上，你收到了这样一条消息：</p> <blockquote><p>&quot;上周五提交的《Python数据分析入门》课程需要尽快上线。能不能用你那个AI助手跑一遍标准审核流程？就是：1)所有代码示例要能运行 2)技术概念不能有硬伤 3)难度梯度适合零基础 4)语言风格符合我们的规范。下午3点前要结果。&quot;</p></blockquote> <p>你心想，这个任务挺简单的。你的机器人已经能验证代码了，处理这个&quot;组合任务&quot;应该不难。于是你把所有要求塞进一个prompt里：</p> <div class="language-plaintext line-numbers-mode"><pre class="language-plaintext"><code>prompt = &quot;&quot;&quot;请完成以下课程审核任务：
+1. 验证所有Python代码能正确运行
+2. 检查技术概念的准确性（特别是pandas和numpy的用法说明）
+3. 评估难度曲线是否适合编程新手
+4. 按照我们的风格指南调整用词（避免&quot;很简单&quot;&quot;超级&quot;等口语）
+请给出完整的审核报告。&quot;&quot;&quot;
+response = agent.run(prompt + course_content)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><p>几分钟后，你打开返回的结果：</p> <ul><li>Agent确实验证了代码，但在&quot;优化语言&quot;时，它把代码里的<code>super()</code>也改成了<code>parent()</code>，因为它觉得&quot;super太口语化&quot;。</li> <li>它发现第 3 章对DataFrame的解释有误，改正后却引入了更严重的错误：说&quot;DataFrame是Python内置的数据结构&quot;。</li> <li>至于难度评估？它在处理到第 50 个问题时似乎已经忘了这回事。</li></ul> <p>你试图让它重来，这次它记住了评估难度，却漏掉了一半的代码验证。第三次，它所有任务都做了，但把原本正确的概念&quot;改错了&quot;。</p> <p>问题很明显：让单个Agent同时接管多个复杂任务，就像让一个实习生同时接四个电话——总有一个会出问题。</p> <h3 id="_2-2-失败原因分析"><a href="#_2-2-失败原因分析" class="header-anchor">#</a> 2.2 失败原因分析</h3> <h4 id="_2-2-1-注意力机制的遗忘效应"><a href="#_2-2-1-注意力机制的遗忘效应" class="header-anchor">#</a> 2.2.1 注意力机制的遗忘效应</h4> <p>大语言模型在生成回复时，对不同位置信息的&quot;注意力&quot;是不均等的。当Agent处理到第四个任务（润色语言）时，第一个任务（代码验证）的细节已经被大量中间信息稀释。</p> <p>具体表现：模型在后期修改时&quot;忘记&quot;了前期验证的约束。比如你已经验证<code>super()</code>是正确的Python语法，但在语言润色阶段，模型可能因为&quot;super&quot;这个词看起来口语化而将其替换，导致代码出错。</p> <p>这不是简单的&quot;记忆力差&quot;，而是Transformer架构中self-attention机制的固有限制——token之间的注意力权重会随着序列长度增加而被稀释。</p> <h4 id="_2-2-2-错误的级联放大"><a href="#_2-2-2-错误的级联放大" class="header-anchor">#</a> 2.2.2 错误的级联放大</h4> <p>在顺序执行多个任务时，早期的错误会成为后续处理的&quot;事实基础&quot;。假设Agent在事实检查阶段错误地&quot;纠正&quot;了DataFrame的定义（比如说它是Python内置的），这个错误会进入后续的上下文。</p> <p>更糟的是，模型会基于这个错误的&quot;事实&quot;继续推理：</p> <ul><li>既然DataFrame是&quot;内置的&quot;，那么就不需要import pandas</li> <li>教学案例中就会删除导入语句</li> <li>代码示例全部失效</li></ul> <p>这种错误传播不是线性的，而是指数级的——一个小错误会触发一连串的错误决策。</p> <h4 id="_2-2-3-扁平化理解-vs-结构化需求"><a href="#_2-2-3-扁平化理解-vs-结构化需求" class="header-anchor">#</a> 2.2.3 扁平化理解 vs 结构化需求</h4> <p>你的复杂需求其实是一个有内在结构的任务图：</p> <ul><li>有些任务可以并行（代码检查和风格检查互不干扰）</li> <li>有些任务有依赖（必须先理解概念才能评估难度）</li> <li>有些任务需要全局视角（评估整体难度曲线）</li></ul> <p>但对模型来说，你的prompt只是一个扁平的token序列。它无法自动识别出这种结构关系，而是试图用一个线性的生成过程去解决一个本质上是图结构的问题。</p> <p>就像让某人同时玩四个不同规则的游戏，还不告诉他哪些可以轮流玩，哪些必须同时进行。</p> <p>最终，依赖单个 Agent 执行复杂审阅，就像在没有施工蓝图的情况下建造一栋房子，每砌一块砖都可能影响整栋建筑的结构稳定。</p> <h3 id="_2-3-工作流的几种模式"><a href="#_2-3-工作流的几种模式" class="header-anchor">#</a> 2.3 工作流的几种模式</h3> <p>既然让一个 Agent 包办所有事情行不通，那你自然会想到另一种思路：就像你在管理一个项目时，你会把项目拆分成几个子任务，分配给不同的人或在不同时间点完成。这种“分而治之”（Divide and Conquer）的思想，正是解决此类问题的核心。</p> <p>我们将这种把复杂任务拆解成多个节点，并定义它们之间执行关系的模式，称为<strong>工作流 (Workflow)</strong>。</p> <p>构建工作流的关键，是理解业务并做出最合适的任务拆解。下面，我们将从最简单的模式开始，一步步构建出能够处理复杂课程审阅的强大工作流。</p> <h4 id="_2-3-1-模式一-流水线-pipeline"><a href="#_2-3-1-模式一-流水线-pipeline" class="header-anchor">#</a> 2.3.1 模式一：流水线 (Pipeline)</h4> <p>这是最基础、最直观的工作流。它将一个任务分解为多个固定的、按顺序执行的步骤。前一个步骤的输出，严格作为后一个步骤的输入，整个过程像工厂的流水线一样，单向且不可变。你在本课程早期构建的 RAG 问答机器人，就是这种模式的完美体现。</p> <img src="https://img.alicdn.com/imgextra/i1/O1CN01qoedS1202nBPFnvYj_!!6000000006792-55-tps-1033-70.svg" width="700"> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;
+模式一：流水线（Pipeline） - 场景：课程快速检查流程
+目标：用户提交一篇课程初稿，系统按顺序完成
+1) 提取课程中的代码 -&gt; 2) 验证代码可执行性 -&gt; 3) 生成代码检查报告
+&quot;&quot;&quot;
+import asyncio
+from agentscope.message import Msg
+from agentscope.pipeline import sequential_pipeline
+from chatbot.agent import create_agent, disable_console_output
+
+async def run_pipeline() -&gt; None:
+    # 节点A：代码提取 Agent
+    # multi_agent=True 是 AgentScope 中的一个配置，用于确保 Agent 之间的通信格式兼容，
+    # 是构建工作流和多智能体系统的推荐设置。
+    code_extractor = create_agent(
+        name=&quot;代码提取器&quot;,
+        sys_prompt=(
+            &quot;你是代码提取专家。请从用户提供的课程文本中，精确地提取出所有 Python 代码块。&quot;
+            &quot;只输出代码，不要有任何其他解释。&quot;
+        ),
+        model_name=&quot;qwen-flash&quot;,
+        multi_agent=True,
+    )
+
+    # 节点B：代码验证 Agent (可调用外部工具)
+    code_validator = create_agent(
+        name=&quot;代码验证器&quot;,
+        sys_prompt=(
+            &quot;你是代码执行与验证专家。你将接收到代码文本。请使用代码解释器来执行它。&quot;
+            &quot;报告代码是否能成功运行，如果不能，请指出错误。&quot;
+        ),
+        # 此处可以配置 code_validator 使用你在第二节学过的代码解释器工具
+        model_name=&quot;qwen-plus&quot;,
+        multi_agent=True,
+    )
+
+    # 节点C：报告生成 Agent
+    report_generator = create_agent(
+        name=&quot;报告生成器&quot;,
+        sys_prompt=(
+            &quot;你是审阅报告撰写助理。根据上一步的代码验证结果，为课程设计师生成一份简洁明了的检查报告。&quot;
+        ),
+        model_name=&quot;qwen-max&quot;,
+        multi_agent=True,
+    )
+
+    agents = [code_extractor, code_validator, report_generator]
+    disable_console_output(agents)
+
+    course_draft = (
+        &quot;这是我们的新课程。第一部分是`print('Hello, World!')`。&quot;
+        &quot;第二部分是一个有问题的代码`x = 1 / 0`。&quot;
+    )
+    result = await sequential_pipeline(
+        agents=agents,
+        msg=Msg(&quot;user&quot;, course_draft, &quot;user&quot;),
+    )
+
+    print(&quot;=&quot; * 50)
+    print(&quot;流水线输出：&quot;)
+    print(result.content)
+    print(&quot;=&quot; * 50)
+
+async def main() -&gt; None:
+    await run_pipeline()
+
+await main()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br></div></div><p>它的核心优势在于<strong>简单、可预测且易于调试</strong>。因为流程是固定的，所以当出现问题时，你可以很容易地定位到是哪个环节（提取、验证还是报告）出了问题。这种确定性在许多企业级应用中至关重要。</p> <p>它适用于业务流程非常固定、逻辑单一的任务。例如：</p> <ul><li><strong>代码初步检查</strong>：先提取代码，再运行验证。</li> <li><strong>文档翻译</strong>：先提取文本，再进行翻译，最后格式化输出。</li> <li><strong>新员工入职材料分发</strong>：先生成欢迎邮件，再附上公司文档，最后发送。</li></ul> <p>流水线的刚性是它最大的优点，也是最致命的缺点。它无法处理流程之外的任何变化。面对“帮我评估一下这篇课程的趣味性”这样的请求，这条为“代码检查”设计的流水线会完全不知所措，因为它没有处理这种意图的能力。它假设所有输入都应遵循同一套处理逻辑。</p> <h4 id="_2-3-2-模式二-分支选择-branching"><a href="#_2-3-2-模式二-分支选择-branching" class="header-anchor">#</a> 2.3.2 模式二：分支选择 (Branching)</h4> <p>为了克服流水线的僵化，你需要引入决策能力。分支选择模式的核心是在工作流的开始或关键节点设置一个“路由器”或“调度中心”。这个决策节点会分析输入（例如，用户的审阅要求），然后像一个交通警察一样，将任务引导到不同的、预设好的处理路径（即不同的流水线或专家）上去。</p> <img src="https://img.alicdn.com/imgextra/i2/O1CN012SjTzf1eal0YTt2eq_!!6000000003888-55-tps-935-270.svg" width="700"> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;
+模式二：分支选择（Branching） - 场景：课程审阅任务分发
+路由 Agent 读取审阅请求，选择以下分支之一：
+1) code_check: 仅快速检查代码
+2) style_guide: 按风格指南润色语言
+3) full_review: 进行全面的多维度评审
+&quot;&quot;&quot;
+import asyncio
+from typing import Literal
+from pydantic import BaseModel, Field
+from agentscope.message import Msg
+from chatbot.agent import create_agent, disable_console_output
+
+class RouteChoice(BaseModel):
+    choice: Literal[&quot;code_check&quot;, &quot;style_guide&quot;, &quot;full_review&quot;, None] = Field(
+        description=&quot;根据用户意图选择分支：code_check/style_guide/full_review/None&quot;
+    )
+    extra: str | None = Field(default=None, description=&quot;对任务的简要说明&quot;)
+
+async def branch_code_check(user_msg: Msg) -&gt; Msg:
+    agent = create_agent(
+        name=&quot;代码快检专家&quot;,
+        sys_prompt=&quot;你是代码快检专家。根据用户需求，快速验证课程中的代码片段是否能运行。&quot;,
+        model_name=&quot;qwen-plus&quot;,
+        multi_agent=True,
+    )
+    disable_console_output([agent])
+    return await agent(user_msg)
+
+async def branch_style_guide(user_msg: Msg) -&gt; Msg:
+    agent = create_agent(
+        name=&quot;语言润色专家&quot;,
+        sys_prompt=&quot;你是语言润色专家。请根据公司风格指南，改写和润色用户提供的课程文本。&quot;,
+        model_name=&quot;qwen-max&quot;,
+        multi_agent=True,
+    )
+    disable_console_output([agent])
+    return await agent(user_msg)
+
+async def branch_full_review(user_msg: Msg) -&gt; Msg:
+    agent = create_agent(
+        name=&quot;首席评审&quot;,
+        sys_prompt=&quot;你是首席评审。告知用户，你将启动一个包含代码、事实和教学法在内的全面评审流程。&quot;,
+        model_name=&quot;qwen-flash&quot;, # 使用轻量模型模拟启动流程的告知动作
+        multi_agent=True,
+    )
+    disable_console_output([agent])
+    return await agent(user_msg)
+
+
+async def run_branching() -&gt; None:
+    router = create_agent(
+        name=&quot;审阅任务分发员&quot;,
+        sys_prompt=(
+            &quot;你是课程审阅任务的分发员，根据用户输入选择分支：\n&quot;
+            &quot;- 如果只是想检查代码，输出 code_check\n&quot;
+            &quot;- 如果是想润色文笔，输出 style_guide\n&quot;
+            &quot;- 如果是需要完整、全面的评审，输出 full_review\n&quot;
+            &quot;仅通过结构化输出来表达你的选择，不要正文回答。&quot;
+        ),
+        model_name=&quot;qwen-plus&quot;,
+        multi_agent=False,
+    )
+
+    user_text = &quot;这篇课程写的差不多了，帮我全面检查一下，特别是代码和难度。&quot;
+    
+    res = await router(
+        Msg(&quot;user&quot;, user_text, &quot;user&quot;),
+        structured_model=RouteChoice,
+    )
+    choice = res.metadata.get(&quot;choice&quot;)
+
+    if choice == &quot;code_check&quot;:
+        out = await branch_code_check(Msg(&quot;user&quot;, user_text, &quot;user&quot;))
+    elif choice == &quot;style_guide&quot;:
+        out = await branch_style_guide(Msg(&quot;user&quot;, user_text, &quot;user&quot;))
+    elif choice == &quot;full_review&quot;:
+        out = await branch_full_review(Msg(&quot;user&quot;, user_text, &quot;user&quot;))
+    else:
+        # 默认走全面评审，保证示例可运行
+        out = await branch_full_review(Msg(&quot;user&quot;, user_text, &quot;user&quot;))
+
+    print(&quot;=&quot; * 50)
+    print(f&quot;分支选择：{choice}&quot;)
+    print(out.content)
+    print(&quot;=&quot; * 50)
+
+async def main() -&gt; None:
+    await run_branching()
+
+await main()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br></div></div><p>与单一流水线相比，分支选择让系统变得<strong>更灵活、更智能</strong>。它使得一个应用能够处理多种不同类型的任务，极大地扩展了其适用范围，提升了用户体验。</p> <p>常见的应用场景有：</p> <ul><li><strong>智能客服</strong>：根据用户问题类型（课程内容咨询、平台技术支持、购买建议）转接到不同的处理流程。</li> <li><strong>多工具 Agent</strong>：Agent 根据任务需求，决定是调用代码解释器、搜索引擎还是内部知识库。</li> <li><strong>内容处理系统</strong>：根据内容类型（视频、文本、交互式 Notebook）调用不同的审核流程。</li></ul> <p>分支选择本质上是“多选一”，它依然是<strong>串行</strong>的。它能处理“代码检查”或“语言润色”，但无法处理“一边检查代码，一边润色语言”的复合请求。对于我们最初那个包含四个审核维度的复杂请求，它一次只能走一条分支，需要用户与机器人进行多次独立的对话才能完成，效率极低。</p> <h4 id="_2-3-3-模式三-并行执行-parallel-execution"><a href="#_2-3-3-模式三-并行执行-parallel-execution" class="header-anchor">#</a> 2.3.3 模式三：并行执行 (Parallel Execution)</h4> <p>当一个请求可以被分解为多个互不依赖的子任务时，让它们排队等待是极大的浪费。并行执行模式的核心思想是“同时进行”。它首先将一个复杂任务拆解成多个子任务，然后将这些子任务分发到不同的执行单元（Agent或工具）同时处理，最后再将所有结果汇集起来，形成最终的输出。</p> <img src="https://img.alicdn.com/imgextra/i4/O1CN01toenC81XZCLjsLHL4_!!6000000002937-55-tps-1045-420.svg" width="700"> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;
+模式三：并行执行（Parallel Execution） - 场景：课程完整审阅
+将独立的审阅子任务并行执行：代码检查、事实核对、教学法评估、语言风格检查。
+示例使用 fanout_pipeline 并行收集报告，再由合成 Agent 汇总。
+&quot;&quot;&quot;
+import asyncio
+from typing import List
+from agentscope.message import Msg
+from agentscope.pipeline import fanout_pipeline
+from chatbot.agent import create_agent, disable_console_output
+
+async def run_parallel() -&gt; None:
+    # 四个独立子任务的“专家”Agent
+    code_checker = create_agent(
+        name=&quot;代码检查员&quot;,
+        sys_prompt=&quot;验证课程中的代码是否正确无误，并给出修复建议。&quot;,
+        model_name=&quot;qwen-plus&quot;,
+        multi_agent=True,
+    )
+    fact_checker = create_agent(
+        name=&quot;事实核查员&quot;,
+        sys_prompt=&quot;核对课程中的技术概念、函数解释是否准确，引用是否规范。&quot;,
+        model_name=&quot;qwen-plus&quot;,
+        multi_agent=True,
+    )
+    pedagogy_evaluator = create_agent(
+        name=&quot;教学法评估师&quot;,
+        sys_prompt=&quot;评估课程的难度曲线、案例趣味性和练习有效性。&quot;,
+        model_name=&quot;qwen-flash&quot;,
+        multi_agent=True,
+    )
+    style_editor = create_agent(
+        name=&quot;风格编辑&quot;,
+        sys_prompt=&quot;根据公司风格指南，检查并报告语言风格、术语一致性问题。&quot;,
+        model_name=&quot;qwen-flash&quot;,
+        multi_agent=True,
+    )
+
+    experts = [code_checker, fact_checker, pedagogy_evaluator, style_editor]
+    disable_console_output(experts)
+
+    course_content = &quot;这是我们新开发的 Python 数据分析入门课...&quot;
+    msgs = await fanout_pipeline(
+        agents=experts,
+        msg=Msg(&quot;user&quot;, course_content, &quot;user&quot;),
+        enable_gather=True,
+    )
+
+    # 汇总 Agent
+    summarizer = create_agent(
+        name=&quot;总编辑&quot;,
+        sys_prompt=&quot;将来自多位专家的审阅意见汇总成一份结构清晰、条理分明的总审阅报告。&quot;,
+        model_name=&quot;qwen-max&quot;,
+        multi_agent=True,
+    )
+    disable_console_output([summarizer])
+
+    merged_text: List[str] = [m.content[0][&quot;text&quot;] for m in msgs]
+    prompt = &quot;\n\n&quot;.join(merged_text)
+    summary = await summarizer(Msg(&quot;user&quot;, prompt, &quot;user&quot;))
+
+    print(&quot;=&quot; * 50)
+    print(&quot;并行执行输出：&quot;)
+    print(summary.content)
+    print(&quot;=&quot; * 50)
+
+async def main() -&gt; None:
+    await run_parallel()
+
+await main()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br></div></div><p>最显著的优势是<strong>效率的大幅提升</strong>。工作流的总耗时不再是所有子任务耗时之和，而是取决于耗时最长的那个子任务。这使得 Agent 能够快速响应包含多个步骤的复杂请求。</p> <p>常见的应用场景有：</p> <ul><li><strong>处理复杂审阅请求</strong>：如我们的课程审阅场景，同时处理代码、事实、教学法、风格等多个维度。</li> <li><strong>生成综合报告</strong>：同时从不同数据源（用户反馈、市场趋势、竞品分析）拉取信息，并分别进行分析，最后汇总成一份新课程立项报告。</li> <li><strong>批量数据处理</strong>：同时对多个课程单元执行相同的格式化或检查操作。</li></ul> <p>此模式的前提是子任务之间<strong>相互独立</strong>。如果任务之间存在依赖关系（例如，必须先确认课程的核心知识点，才能评估其案例是否贴切），则无法简单地并行。此外，它假设每个执行单元都能给出“正确”的答案，不适用于需要多方比较、权衡才能得出最佳方案的创造性或决策性任务。</p> <h4 id="_2-3-4-模式四-混合专家-mixture-of-agents-moa"><a href="#_2-3-4-模式四-混合专家-mixture-of-agents-moa" class="header-anchor">#</a> 2.3.4 模式四：混合专家 (Mixture-of-Agents, MoA)</h4> <p>与并行执行旨在提升效率不同，混合专家模式的核心目标是<strong>追求极致的质量、鲁棒性和创造性</strong>。MoA 的核心理念基于一个关键发现：<strong>不同的大语言模型具有各自独特的优势和专长，而当一个模型能够参考其他模型的输出时，往往能生成质量更高的响应——这种现象称为模型的&quot;协作性&quot;(Collaborativeness)</strong>。MoA 的做法是，让多个<strong>不同的大语言模型</strong>同时处理<strong>同一个任务</strong>，然后由一个聚合模型对所有输出进行综合、分析和融合，从而产生一个远超任何单个模型水平的最终结果。</p> <img src="https://img.alicdn.com/imgextra/i4/O1CN01eQoVAt1TAEIJqoxM4_!!6000000002341-55-tps-1003-578.svg" width="700"> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;
+模式四：混合专家（Mixture-of-Agents, MoA） - 场景：课程核心卖点提炼
+使用三个不同的大语言模型并行处理同一任务，通过聚合模型融合它们的输出，
+利用模型间的协作性(Collaborativeness)产生更高质量的结果。
+&quot;&quot;&quot;
+import asyncio
+from agentscope.message import Msg
+from agentscope.pipeline import fanout_pipeline
+from chatbot.agent import create_agent, disable_console_output
+
+async def run_moa() -&gt; None:
+    # 使用三个不同的模型作为提议者(Proposer)
+    # 每个模型有其独特的优势，但处理相同的任务
+    proposer1 = create_agent(
+        name=&quot;Qwen3-Max&quot;,
+        sys_prompt=&quot;你是一个专业的课程分析师，请为给定的课程提炼核心卖点和宣传文案。&quot;,
+        model_name=&quot;qwen3-max&quot;,
+        multi_agent=True,
+    )
+    proposer2 = create_agent(
+        name=&quot;DeepSeek-V3.2&quot;,
+        sys_prompt=&quot;你是一个专业的课程分析师，请为给定的课程提炼核心卖点和宣传文案。&quot;,
+        model_name=&quot;deepseek-v3.2-exp&quot;,
+        multi_agent=True,
+    )
+    proposer3 = create_agent(
+        name=&quot;Kimi-K2&quot;,
+        sys_prompt=&quot;你是一个专业的课程分析师，请为给定的课程提炼核心卖点和宣传文案。&quot;,
+        model_name=&quot;kimi-k2-thinking&quot;,
+        multi_agent=True,
+    )
+
+    proposers = [proposer1, proposer2, proposer3]
+    disable_console_output(proposers)
+
+    task = (
+        &quot;这是一门新的'面向Web开发者的AI大模型应用'课程，请为其提炼核心卖点和宣传文案。&quot;
+    )
+    msgs = await fanout_pipeline(
+        agents=proposers,
+        msg=Msg(&quot;user&quot;, task, &quot;user&quot;),
+        enable_gather=True,
+    )
+
+    # 聚合器(Aggregator)接收所有模型的输出，综合产生最佳结果
+    aggregator = create_agent(
+        name=&quot;聚合器&quot;,
+        sys_prompt=(
+            &quot;你的任务是综合多个大语言模型对同一问题的回答。&quot;
+            &quot;这些回答来自不同的模型，各有优劣。请批判性地评估这些回答，&quot;
+            &quot;识别其中的优点和不足，然后融合这些信息，生成一个高质量、准确、全面的最终回答。&quot;
+            &quot;确保你的回答结构清晰、逻辑连贯，并达到最高的准确性和可靠性标准。&quot;
+        ),
+        model_name=&quot;qwen3-max&quot;,
+        multi_agent=True,
+    )
+    disable_console_output([aggregator])
+
+    # 将所有提议者的输出合并，传递给聚合器
+    merged = &quot;\n\n&quot;.join([
+        f&quot;模型 {i+1} 的回答：\n{m.content}&quot;
+        for i, m in enumerate(msgs)
+    ])
+    final = await aggregator(Msg(&quot;user&quot;, merged, &quot;user&quot;))
+
+    print(&quot;=&quot; * 50)
+    print(&quot;MoA 聚合输出：&quot;)
+    print(final.content)
+    print(&quot;=&quot; * 50)
+
+async def main() -&gt; None:
+    await run_moa()
+
+await main()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br></div></div><p><strong>Mixture-of-Agents(MoA) 工作原理</strong>：</p> <p>MoA 将参与的模型分为两类角色：</p> <ol><li><strong>提议者(Proposers)</strong>：多个不同的模型并行处理同一任务，各自生成响应。这些模型可能在某些方面表现出色（如逻辑推理、创意表达、事实准确性等）。</li> <li><strong>聚合器(Aggregator)</strong>：接收所有提议者的输出，通过批判性评估、比较和融合，生成一个质量更高的最终响应。</li></ol> <p>关键的是，聚合器并非简单地选择最好的答案，而是能够从多个响应中提取各自的优点，综合产生一个超越任何单一模型的结果。</p> <p><strong>MoA 的优势</strong>：</p> <ul><li><strong>利用模型多样性</strong>：不同模型有不同的训练数据、架构和优化目标，导致它们在不同任务上表现各异。MoA 能够同时利用多个模型的长处。</li> <li><strong>增强鲁棒性</strong>：即使某个模型在特定输入上表现不佳，其他模型的高质量输出也能保证最终结果的质量下限。</li> <li><strong>质量的涌现效应</strong>：研究表明，即使提议者模型的单独输出质量较低，聚合后的结果仍可能超越任何单一模型——这是&quot;模型协作性&quot;的直接体现。</li></ul> <p>MOA 适用于那些没有唯一标准答案、对结果质量要求极高、价值巨大的<strong>开放性或创造性任务</strong>。</p> <ul><li><strong>核心文案撰写</strong>：如课程Slogan、推广文案、品牌故事。</li> <li><strong>复杂决策分析</strong>：综合不同模型的分析报告，形成更全面的新课程方向决策建议。</li> <li><strong>代码生成与优化</strong>：让不同模型生成一段示例代码，再由评审 Agent 择优或进行融合重构，以达到最佳的教学效果。</li></ul> <p>不过，MOA 最主要的制约是<strong>成本</strong>。调用 N 个专家 Agent 会带来 N 倍的计算成本和相应的延迟。这是一种用资源换质量的策略，因此必须用在&quot;好钢用在刀刃上&quot;的关键环节，不适合用于常规的、对成本敏感的日常任务。</p> <p><strong>进阶：多层 MoA (Multi-Layer MoA)</strong></p> <p>前面展示的 MoA 是一个&quot;2层结构&quot;：第一层有多个专家并行处理任务，第二层由一个聚合器综合所有专家的输出。然而，MoA 也可以<strong>扩展到 3 层或更多层</strong>，通过多轮迭代不断提炼和优化结果，从而获得比单层 MoA 更卓越的输出质量。</p> <p><strong>多层 MoA 的核心思想</strong>是：将上一层的聚合输出作为下一层的输入，再次交给多个专家进行审视、批判和改进，然后由新的聚合器进行更高层次的综合。这种&quot;迭代提炼&quot;的过程，类似于人类团队中的多轮评审和打磨，每一轮都能发现前一轮遗漏的问题，激发新的创意，最终达到单轮难以企及的质量水平。</p> <p><strong>多层 MoA 的优势</strong>：</p> <ul><li><strong>质量的进一步提升</strong>：第二层、第三层的专家可以站在第一层结果的基础上，进行更深入的分析和优化，就像编辑团队对初稿进行多轮润色一样。</li> <li><strong>纠错能力增强</strong>：即使第一层的某些专家犯了错误，后续层次的专家有机会发现并纠正这些错误，使最终结果更加可靠。</li> <li><strong>创意的涌现</strong>：多层交互可能产生&quot;1+1&gt;2&quot;的效果，不同层次专家的思想碰撞可能激发出任何单层都无法产生的创新方案。</li></ul> <p><strong>实现要点</strong>：</p> <img src="https://img.alicdn.com/imgextra/i3/O1CN01cwiRT91bVJS7AKQSH_!!6000000003470-55-tps-1471-419.svg" width="700"> <div class="language- line-numbers-mode"><pre class="language-text"><code>async def run_multi_layer_moa() -&gt; None:
+    &quot;&quot;&quot;
+    多层 MoA 示例：3层架构提炼课程营销方案
+    Layer 1: 3个不同模型作为提议者并行生成方案
+    Layer 2: 3个不同模型对第一层的聚合输出进行优化和改进
+    Layer 3: 最终聚合器综合所有信息，输出最佳方案
+    &quot;&quot;&quot;
+    # 通用的聚合提示词
+    aggregate_prompt = (
+        &quot;你的任务是综合多个大语言模型对同一问题的回答。&quot;
+        &quot;请批判性地评估这些回答，识别其中的优点和不足，&quot;
+        &quot;然后融合这些信息，生成一个高质量、准确、全面的最终回答。&quot;
+    )
+
+    # Layer 1: 初始提议者层(3个不同模型)
+    layer1_proposers = [
+        create_agent(
+            name=&quot;Proposer-L1-1&quot;,
+            sys_prompt=&quot;你是一个专业的课程分析师，请为给定的课程提炼核心卖点和宣传文案。&quot;,
+            model_name=&quot;qwen3-max&quot;,
+            multi_agent=True
+        ),
+        create_agent(
+            name=&quot;Proposer-L1-2&quot;,
+            sys_prompt=&quot;你是一个专业的课程分析师，请为给定的课程提炼核心卖点和宣传文案。&quot;,
+            model_name=&quot;deepseek-v3.2-exp&quot;,
+            multi_agent=True
+        ),
+        create_agent(
+            name=&quot;Proposer-L1-3&quot;,
+            sys_prompt=&quot;你是一个专业的课程分析师，请为给定的课程提炼核心卖点和宣传文案。&quot;,
+            model_name=&quot;kimi-k2-thinking&quot;,
+            multi_agent=True
+        ),
+    ]
+
+    task = &quot;这是一门新的'面向Web开发者的AI大模型应用'课程，请为其提炼核心卖点和宣传文案。&quot;
+    layer1_outputs = await fanout_pipeline(
+        agents=layer1_proposers,
+        msg=Msg(&quot;user&quot;, task, &quot;user&quot;),
+        enable_gather=True,
+    )
+
+    # Layer 1 聚合器
+    layer1_aggregator = create_agent(
+        name=&quot;Aggregator-L1&quot;,
+        sys_prompt=aggregate_prompt,
+        model_name=&quot;qwen3-max&quot;,
+        multi_agent=True,
+    )
+    layer1_merged = &quot;\n\n&quot;.join([f&quot;模型 {i+1}:\n{m.content}&quot; for i, m in enumerate(layer1_outputs)])
+    layer1_result = await layer1_aggregator(Msg(&quot;user&quot;, layer1_merged, &quot;user&quot;))
+
+    # Layer 2: 第二轮提议者层(3个不同模型，基于第一层的聚合结果进行优化)
+    layer2_proposers = [
+        create_agent(
+            name=&quot;Proposer-L2-1&quot;,
+            sys_prompt=&quot;你是一个专业的课程分析师。请审视给定的营销方案，并提出改进建议或优化版本。&quot;,
+            model_name=&quot;qwen3-max&quot;,
+            multi_agent=True
+        ),
+        create_agent(
+            name=&quot;Proposer-L2-2&quot;,
+            sys_prompt=&quot;你是一个专业的课程分析师。请审视给定的营销方案，并提出改进建议或优化版本。&quot;,
+            model_name=&quot;deepseek-v3.2-exp&quot;,
+            multi_agent=True
+        ),
+        create_agent(
+            name=&quot;Proposer-L2-3&quot;,
+            sys_prompt=&quot;你是一个专业的课程分析师。请审视给定的营销方案，并提出改进建议或优化版本。&quot;,
+            model_name=&quot;kimi-k2-thinking&quot;,
+            multi_agent=True
+        ),
+    ]
+
+    layer2_prompt = f&quot;以下是第一轮分析生成的营销方案：\n\n{layer1_result.content}\n\n请在此基础上提出改进建议或优化版本。&quot;
+    layer2_outputs = await fanout_pipeline(
+        agents=layer2_proposers,
+        msg=Msg(&quot;user&quot;, layer2_prompt, &quot;user&quot;),
+        enable_gather=True,
+    )
+
+    # Layer 2: 最终聚合层
+    final_aggregator = create_agent(
+        name=&quot;Final-Aggregator&quot;,
+        sys_prompt=aggregate_prompt,
+        model_name=&quot;qwen3-max&quot;,
+        multi_agent=True,
+    )
+
+    layer2_merged = &quot;\n\n&quot;.join([f&quot;模型 {i+1}:\n{m.content}&quot; for i, m in enumerate(layer2_outputs)])
+    final_output = await final_aggregator(Msg(&quot;user&quot;, layer2_merged, &quot;user&quot;))
+
+    print(&quot;多层 MoA 最终输出：&quot;)
+    print(final_output.content)
+
+await run_multi_layer_moa()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br></div></div><p><strong>何时使用多层 MoA</strong>：</p> <ul><li><strong>高价值任务</strong>：如公司年度战略报告、重要产品发布文案、核心课程体系设计等，这些任务的成败可能直接影响业务结果，值得投入更多资源。</li> <li><strong>高创造性任务</strong>：如品牌故事创作、教学方法创新设计等，需要多轮思想碰撞才能激发出最佳创意的场景。</li> <li><strong>低容错性任务</strong>：如法律文书、技术白皮书等，任何错误都可能带来严重后果，需要多层审核来确保准确性。</li></ul> <p><strong>成本权衡</strong>：</p> <p>多层 MoA 的成本随层数线性增长。以上面的 3 层架构为例：每层 3 个提议者模型 + 1 个聚合器，意味着至少调用 (3+1) + (3+1) = 8 次模型，相比单层的 3+1=4 次，成本增加了一倍多。因此，只有在任务的价值明显高于成本时，才应考虑使用多层 MoA。</p> <p>你可以通过以下策略来平衡成本和质量：</p> <ul><li><strong>减少提议者数量</strong>：第一层使用 3-4 个不同模型以获得多样性，后续层可以减少到 2-3 个模型进行精炼。</li> <li><strong>减少层数</strong>：对于大多数任务，2 层 MoA（提议者层 + 聚合层）已经能带来显著的质量提升，3 层或更多层通常只在极高价值任务中才值得使用。</li> <li><strong>混合模型配置</strong>：在提议者中混合使用不同性能和成本的模型，而聚合器使用质量最高的模型以确保最终输出的质量。</li></ul> <blockquote><p><strong>扩展阅读：工作流的成本优化与资源管理</strong></p> <p>你已经意识到，像混合专家（MoA）这样的高级模式会带来显著的成本增加。这引出了一个在将任何工作流投入生产前都必须面对的关键问题：如何管理资源和优化成本？幸运的是，你可以通过一系列精细化的工程策略，在不牺牲过多质量的前提下，显著降低工作流的运行成本。</p> <ul><li><strong>差异化模型分配</strong>：工作流中的不同节点，其任务复杂度和重要性天差地别。你可以为简单的任务（如意图识别、格式转换）分配轻量、廉价的模型，而只为最关键的核心任务（如最终决策、文案生成）保留昂贵的高级模型。研究表明，通过合理的优化策略，根据具体实施情况，企业可以节省 40-70% 的 Token 成本。</li> <li><strong>系统性缓存</strong>：仔细观察你的工作流，你会发现许多节点的计算是可重复的。例如，对同一份公司风格指南的检索、对同一篇课程的审阅请求解析等。通过为这些节点增加缓存机制，你可以存储中间结果。当下次遇到相同的输入时，系统可以直接返回缓存的结果，完全绕过模型调用，从而大幅降低成本和延迟。</li> <li><strong>智能批处理 (Batching)</strong>：并非所有任务都需要立即响应。对于课程质量报告生成、用户反馈分析等非实时性任务，你可以设计工作流来智能地聚合一批相似的请求，然后通过一次模型调用进行“批量处理”，而不是为每个请求都单独调用一次。这能在成本和响应时间之间找到一个更优的平衡点。</li></ul></blockquote> <h4 id="_2-3-5-模式五-人机协作-human-in-the-loop-hitl"><a href="#_2-3-5-模式五-人机协作-human-in-the-loop-hitl" class="header-anchor">#</a> 2.3.5 模式五：人机协作 (Human-in-the-Loop, HITL)</h4> <p>至此，你设计的所有工作流都是全自动的。然而，在现实世界中，将所有决策权完全交给 AI 存在风险，尤其是在处理模糊不清的教学概念或高价值的课程内容时。人机协作模式不再追求完全的自动化，而是<strong>有意地在工作流中设计一个或多个“暂停节点”，将控制权交还给人类</strong>，由人类进行决策、审批或质量把关后，再将任务交还给工作流继续执行。这是一种构建可信、安全 AI 系统的关键模式。</p> <img src="https://img.alicdn.com/imgextra/i1/O1CN01olPI4m1HVxhNUB1wz_!!6000000000764-55-tps-851-205.svg" width="700"> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;
+模式五：人机协作（HITL） - 场景：课程疑难点审核（Human as a Tool）
+AI 先对课程中的一个潜在疑难点给出修改建议；随后由具备“人类咨询”工具的改写 Agent 自主决定何时调用该工具向人类请示，最终完成修改。
+&quot;&quot;&quot;
+import asyncio
+import os
+from agentscope.agent import ReActAgent, UserAgent
+from agentscope.message import Msg, TextBlock
+from agentscope.model import DashScopeChatModel
+from agentscope.formatter import DashScopeMultiAgentFormatter
+from agentscope.tool import Toolkit, ToolResponse
+from chatbot.agent import create_agent, disable_console_output
+
+
+# 将人类介入封装为一个工具：ask_human_decision
+async def ask_human_decision(question: str) -&gt; ToolResponse:
+    &quot;&quot;&quot;向人类专家征求决策或意见。
+
+    Args:
+        question (str): 想要请人类确认或补充的具体问题。
+    &quot;&quot;&quot;
+    human_expert = UserAgent(name=&quot;教学专家&quot;)
+    reply = await human_expert(
+        Msg(
+            &quot;assistant&quot;,
+            question,
+            &quot;assistant&quot;,
+        )
+    )
+    return ToolResponse(
+        content=[
+            TextBlock(type=&quot;text&quot;, text=reply.get_text_content()),
+        ]
+    )
+
+
+async def run_hitl() -&gt; None:
+    # AI：给出修改建议
+    suggester = create_agent(
+        name=&quot;疑难点分析师&quot;,
+        sys_prompt=(
+            &quot;你是一名资深教学设计师。请找出课程中对初学者可能最难理解的一个概念，&quot;
+            &quot;并提供一个更通俗易懂的解释作为修改建议。&quot;
+        ),
+        model_name=&quot;qwen-plus&quot;,
+        multi_agent=True,
+    )
+    disable_console_output([suggester])
+
+    course_content = &quot;在Python中，装饰器本质上是一个接收函数作为参数并返回一个新函数的函数...&quot;
+    suggestion = await suggester(Msg(&quot;user&quot;, course_content, &quot;user&quot;))
+
+    print(&quot;AI 建议如下：\n&quot;)
+    print(suggestion.content)
+
+    # 将“人类介入”作为工具交给改写 Agent，自主决定是否调用
+    toolkit = Toolkit()
+    toolkit.register_tool_function(ask_human_decision)
+
+    rewriter = ReActAgent(
+        name=&quot;内容改写器&quot;,
+        sys_prompt=(
+            &quot;你是课程内容改写器。基于提供的 AI 建议完成最终修改。\n&quot;
+            &quot;- 若你有把握，请直接完成修改并给出确认信息；\n&quot;
+            &quot;- 若存在不确定、歧义或高风险，请调用工具 ask_human_decision 先向人类专家请示，&quot;
+            &quot;再据此完成修改；\n&quot;
+            &quot;- 在最终结果中简要说明是否咨询了人类及原因。&quot;
+        ),
+        model=DashScopeChatModel(
+            model_name=&quot;qwen-max&quot;,
+            api_key=os.environ.get(&quot;DASHSCOPE_API_KEY&quot;, &quot;your-api-key&quot;),
+            stream=False,
+        ),
+        formatter=DashScopeMultiAgentFormatter(),
+        toolkit=toolkit,
+    )
+    disable_console_output([rewriter])
+
+    # 将课程内容与 AI 建议一并提供给改写 Agent
+    task = (
+        &quot;下面是课程摘录与 AI 的修改建议。根据系统提示完成最终修改：\n\n&quot;
+        f&quot;[课程内容]\n{course_content}\n\n&quot;
+        f&quot;[AI 建议]\n{suggestion.get_text_content()}\n&quot;
+    )
+    final_action = await rewriter(Msg(&quot;user&quot;, task, &quot;user&quot;))
+
+    print(&quot;=&quot; * 50)
+    print(&quot;HITL 最终输出：&quot;)
+    print(final_action.content)
+    print(&quot;=&quot; * 50)
+
+
+async def main() -&gt; None:
+    await run_hitl()
+
+await main()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br></div></div><p>人类介入工作流的优势在于：</p> <ul><li><strong>提升准确性</strong>：通过引入人类的常识和领域知识来处理 AI 难以判断的教学模糊性（如一个比喻是否恰当），确保最终内容的正确性。</li> <li><strong>增强安全性</strong>：对于直接发布课程、修改核心代码库等高风险操作，人类的最终审批是防止 AI 误操作导致严重后果的最后一道防线。</li> <li><strong>建立信任</strong>：让课程设计师参与到 AI 的审阅和修改过程中，使其对系统的行为有更强的控制感和信任感。</li></ul> <p>常见的应用场景有：</p> <ul><li><strong>处理模糊需求</strong>：当需求不明确时（如“让课程更有趣”），由 AI 提供多个教学设计方案，人类做出选择。</li> <li><strong>高价值操作审批</strong>：在执行任何涉及课程内容发布、删除旧版本等操作前，必须由课程负责人进行审批。</li> <li><strong>关键产出质量审核</strong>：在“混合专家”生成一份重要的课程大纲初稿后，工作流的最后一步应是将其发送给教学总监进行最终审核，而不是直接投入开发。</li></ul> <p>引入人类会<strong>显著降低工作流的自动化程度和执行速度</strong>。因此，它不适用于追求高吞吐量和毫秒级响应的全自动化场景。HITL 节点的设计需要精心考虑，只在绝对必要的环节介入，避免过多的人工干预拖慢整个流程。</p> <blockquote><p><strong>扩展阅读：生产级框架</strong></p> <p>你无需从零开始实现这些复杂的模式。业界已经有成熟的框架来帮助你构建和管理 Agent 工作流，也内置了异常处理和状态管理工具。</p> <ul><li><strong>代码框架</strong>：<strong>AgentScope</strong>、<strong>LangGraph</strong> 等库允许你用 Python 代码灵活地定义节点和边，构建任意复杂的图结构工作流，提供了最高的定制化能力。</li> <li><strong>可视化编排平台</strong>：<strong>阿里云百炼</strong>、<strong>Dify</strong> 等低代码/无代码平台，允许你通过拖拽组件、连接线条的方式，像绘制流程图一样构建工作流。这极大地降低了开发门槛，适合快速原型验证和业务流程相对固定的场景。</li></ul></blockquote> <h4 id="_2-3-6-选择合适的模式"><a href="#_2-3-6-选择合适的模式" class="header-anchor">#</a> 2.3.6 选择合适的模式</h4> <p>你已经了解了五种功能各异的工作流模式。一个很自然的问题是：在面对一个具体的业务问题时，我应该如何选择，甚至组合这些模式呢？</p> <p>记住一个核心原则：<strong>没有“最好”的模式，只有“最适合”的模式</strong>。你的选择应该由任务的内在属性决定，例如任务的复杂度、子任务间的依赖关系、对成本和效率的要求，以及对结果质量和风险的容忍度。</p> <h3 id="_2-4-总结"><a href="#_2-4-总结" class="header-anchor">#</a> 2.4 总结</h3> <p>让我们回顾一下你在本节学到的知识：</p> <ul><li><strong>单一 Agent 的局限性</strong>：面对包含多个步骤的复杂任务，单个 Agent 难以维持稳定的执行计划，容易因“注意力涣散”或“错误累积”而导致任务失败。</li> <li><strong>工作流的核心思想</strong>：借鉴“分而治之”的理念，将复杂任务拆解为多个独立的、可管理的节点，并定义它们之间的执行关系，从而确保流程的可靠性。</li> <li><strong>五种核心编排模式</strong>：你学习了流水线、分支选择、并行执行、混合专家和人机协作这五种模式，它们分别用于处理固定流程、多选一决策、并行提效、追求质量和引入人工审核的场景。</li></ul> <h2 id="_3-从固定流程到自主规划"><a href="#_3-从固定流程到自主规划" class="header-anchor">#</a> 3 从固定流程到自主规划</h2> <h3 id="_3-1-固定工作流的局限性"><a href="#_3-1-固定工作流的局限性" class="header-anchor">#</a> 3.1 固定工作流的局限性</h3> <p>在上一章，你学习了如何为重复性工作构建固定的工作流。假设你为公司开发了一个“课程前期调研”机器人，它有一个固定的流程：当收到调研需求时，并行分析用户画像、竞品课程和行业需求。</p> <p>现在，一位课程设计师向机器人发出了指令：“请帮我完成一门新的 Python 入门课程的前期调研。”</p> <p>机器人忠实地启动了你预设的工作流：</p> <ol><li><strong>行业需求分析</strong>子任务：调用工具，成功。</li> <li><strong>用户画像定义</strong>子任务：调用工具，成功。</li> <li><strong>竞品课程分析</strong>子任务：调用<code>analyze_competitor_course</code>工具，却收到了一个错误：“<strong>错误：因竞品网站布局更新，无法解析课程大纲。</strong>”</li></ol> <p>这时，你的机器人将无法继续执行。因为它被设计的流程里，没有处理“竞品分析工具失效”这个意外情况的步骤。</p> <img src="https://img.alicdn.com/imgextra/i4/O1CN01xWVzLA1PLRWphDkBR_!!6000000001824-55-tps-987-375.svg" width="700"> <h3 id="_3-2-朴素解法-增加新的分支"><a href="#_3-2-朴素解法-增加新的分支" class="header-anchor">#</a> 3.2 朴素解法：增加新的分支</h3> <p>你会想，只要为工作流添加异常处理分支就可以了。你可以在原有的固定流程里增加一个分支：如果<code>analyze_competitor_course</code>失败，那就执行一个新的步骤，比如提醒课程设计师人工处理。</p> <img src="https://img.alicdn.com/imgextra/i4/O1CN01wJwRQW1dXilbRgnqj_!!6000000003746-55-tps-1432-514.svg" width="700"> <p>这种“打补丁”的方案看似有效，但如果下一次是行业需求分析的API接口临时维护失败了呢？你是不是又要加一个新的分支？如果定义用户画像时，需要的数据源格式变更了呢？还要再加一个分支吗？</p> <p>你会发现，你永远无法预知所有可能的意外。试图为每一种异常都预设一个处理流程，会让你的工作流变得无比复杂和臃肿，难以维护。更重要的是，一旦出现你没有预料到的新问题，整个系统依然会“卡住”。</p> <p>根本原因在于，这个 Agent 只是一个流程的忠实执行者，而不是一个问题的解决者。它并不“理解”用户的最终目标是“完成课程前期调研”，它只知道要严格按照你画好的流程图一步步往下走。当其中一条路被堵死时，它不知道如何像人一样，为了达成最终目标而主动寻找别的路。</p> <blockquote><p><strong>扩展阅读：目标 (Goal) vs. 任务 (Task)</strong></p> <p>理解“目标”和“任务”的区别，是理解 Agent 自主规划能力的关键。</p> <ul><li><strong>目标 (Goal)</strong>：是用户希望达成的最终状态。它是高层次的、有时甚至是模糊的。例如：“帮我完成Python入门课程的调研”。</li> <li><strong>任务 (Task)</strong>：是为了达成目标而需要执行的具体、明确的动作。例如：“调用 <code>analyze_competitor_course</code> 工具，参数为 {url: 'some-site.com' }”。</li></ul> <p>一个只有固定工作流的 Agent，它处理的是“任务”。当任务执行失败时，它无能为力。而一个更智能的 Agent，应该能聚焦于用户的“目标”。当一个具体的任务失败时，它应该能意识到这只是达成目标的一条路走不通了，然后主动规划出新的任务来继续逼近目标。</p></blockquote> <h3 id="_3-3-让-agent-学会自主规划任务"><a href="#_3-3-让-agent-学会自主规划任务" class="header-anchor">#</a> 3.3 让 Agent 学会自主规划任务</h3> <p>这个过程启发了我们：能否将这种“规划”的权力也赋予 Agent，让它在面对未知挑战时，能自主地设计和调整自己的工作流？</p> <p>这正是业界解决此类问题的核心理论：<strong>规划 (Planning)</strong>。</p> <p>引入规划能力后，Agent 的工作模式发生了根本性转变。开发者的角色从“流程设计师”转变为“目标设定者”与“能力（工具）提供者”，而 Agent 则从“任务执行者”升级为“<strong>解决方案规划师</strong>”。</p> <p>它的工作流程变成了这样：</p> <ol><li><strong>接收目标</strong>：Agent 接收一个高阶的用户目标（例如：“完成Python课程的前期调研”）。</li> <li><strong>动态规划</strong>：Agent 的“大脑”（LLM）首先进行思考，将目标分解，动态地生成一份包含多个步骤的<strong>行动计划 (Plan)</strong>。</li> <li><strong>执行计划</strong>：一个执行程序接收这份计划，然后像执行一份普通工作流一样，按顺序调用工具，完成每个步骤。</li></ol> <img src="https://img.alicdn.com/imgextra/i2/O1CN012mm1Qg1KShjGlWgnM_!!6000000001163-55-tps-1233-169.svg" width="700"> <p>在这个新模式下，“计划”本身成了一种可被生成和执行的数据。大模型不再是流程中的一个固定环节，而是流程的<strong>创造者</strong>。</p> <p>为了让你更直观地理解 Agent 的自主规划能力，我们提供了一个基于 AgentScope 框架的完整示例。这个示例模拟了文章开头的场景：当竞品分析工具失效时，Agent 如何自主规划并找到解决方案。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;AgentScope - Agent自主规划与执行示例（简化版）&quot;&quot;&quot;
+import asyncio
+import os
+from agentscope.agent import ReActAgent
+from agentscope.formatter import DashScopeChatFormatter
+from agentscope.message import Msg, TextBlock
+from agentscope.model import DashScopeChatModel
+from agentscope.tool import Toolkit, ToolResponse
+from agentscope.plan import PlanNotebook
+
+
+# 模拟业务工具
+async def analyze_competitor_course(url: str) -&gt; ToolResponse:
+    &quot;&quot;&quot;分析竞品课程页面的大纲&quot;&quot;&quot;
+    # 模拟因网站改版导致解析失败
+    return ToolResponse(content=[
+        TextBlock(type=&quot;text&quot;, text=f&quot;❌ 错误：因 {url} 网站布局更新，无法解析课程大纲。&quot;)
+    ])
+
+async def search_industry_demand(topic: str) -&gt; ToolResponse:
+    &quot;&quot;&quot;查询行业的技能需求&quot;&quot;&quot;
+    return ToolResponse(content=[
+        TextBlock(type=&quot;text&quot;, text=f&quot;✅ 报告：关于“{topic}”的行业需求分析已完成。&quot;)
+    ])
+
+async def google_search(query: str) -&gt; ToolResponse:
+    &quot;&quot;&quot;谷歌网页搜索&quot;&quot;&quot;
+    if &quot;syllabus&quot; in query:
+        return ToolResponse(content=[
+            TextBlock(type=&quot;text&quot;, text=&quot;搜索结果：找到了'Python入门课程'的大纲PDF，地址 a.com/syllabus.pdf&quot;)
+        ])
+    return ToolResponse(content=[TextBlock(type=&quot;text&quot;, text=&quot;未找到相关信息&quot;)])
+
+async def extract_text_from_pdf(url: str) -&gt; ToolResponse:
+    &quot;&quot;&quot;从PDF链接中提取文本&quot;&quot;&quot;
+    return ToolResponse(content=[
+        TextBlock(type=&quot;text&quot;, text=f&quot;✅ 已从 {url} 提取大纲文本：1. 变量与数据类型... 2. ...&quot;)
+    ])
+
+
+# 用于监控计划变化的钩子函数
+plan_snapshots = []
+
+def capture_plan_snapshot(notebook, plan):
+    &quot;&quot;&quot;捕获计划快照&quot;&quot;&quot;
+    if plan:
+        plan_snapshots.append({
+            &quot;name&quot;: plan.name,
+            &quot;description&quot;: plan.description,
+            &quot;state&quot;: plan.state,
+            &quot;subtasks&quot;: [
+                {
+                    &quot;name&quot;: st.name,
+                    &quot;state&quot;: st.state,
+                    &quot;outcome&quot;: st.outcome
+                }
+                for st in plan.subtasks
+            ]
+        })
+
+
+async def main():
+    
+    print(&quot;=&quot; * 60)
+    print(&quot;🤖 Agent自主规划演示&quot;)
+    print(&quot;=&quot; * 60)
+    
+    # 创建PlanNotebook并注册钩子
+    plan_notebook = PlanNotebook()
+    plan_notebook.register_plan_change_hook(&quot;capture&quot;, capture_plan_snapshot)
+    
+    # 创建工具箱
+    toolkit = Toolkit()
+    toolkit.register_tool_function(analyze_competitor_course)
+    toolkit.register_tool_function(search_industry_demand)
+    toolkit.register_tool_function(google_search)
+    toolkit.register_tool_function(extract_text_from_pdf)
+    
+    # 创建Agent
+    agent = ReActAgent(
+        name=&quot;CourseResearcherAgent&quot;,
+        sys_prompt=(
+            &quot;你是课程调研助手。遇到复杂任务时：\n&quot;
+            &quot;1. 用create_plan创建计划\n&quot;
+            &quot;2. 逐步执行，用finish_subtask标记完成\n&quot;
+            &quot;3. 遇到问题灵活调整，例如使用google_search寻找替代方案\n&quot;
+            &quot;4. 完成后用finish_plan结束&quot;
+        ),
+        model=DashScopeChatModel(
+            model_name=&quot;qwen-max&quot;,
+            api_key=os.environ.get(&quot;DASHSCOPE_API_KEY&quot;),
+        ),
+        formatter=DashScopeChatFormatter(),
+        toolkit=toolkit,
+        plan_notebook=plan_notebook,
+    )
+    
+    # 用户请求
+    print(&quot;\n💬 用户: 请帮我完成一门新的 Python 入门课程的前期调研。\n&quot;)
+    print(&quot;-&quot; * 60)
+    
+    await agent(Msg(&quot;user&quot;, &quot;请帮我完成一门新的 Python 入门课程的前期调研，竞品是 some-site.com 的课程。&quot;, &quot;user&quot;))
+    
+    # 显示结果（从快照中获取最后的完整计划）
+    print(&quot;\n&quot; + &quot;=&quot; * 60)
+    print(&quot;📊 执行结果&quot;)
+    print(&quot;=&quot; * 60)
+    
+    if plan_snapshots:
+        final_plan = plan_snapshots[-1]
+        finished = sum(1 for st in final_plan[&quot;subtasks&quot;] if st[&quot;state&quot;] == &quot;finished&quot;)
+        
+        print(f&quot;\n✅ 计划: {final_plan['name']}&quot;)
+        print(f&quot;📊 进度: {finished}/{len(final_plan['subtasks'])}&quot;)
+        print(f&quot;🎯 状态: {final_plan['state']}\n&quot;)
+        
+        print(&quot;子任务详情:&quot;)
+        for i, subtask in enumerate(final_plan[&quot;subtasks&quot;], 1):
+            icon = &quot;✅&quot; if subtask[&quot;state&quot;] == &quot;finished&quot; else &quot;⏳&quot;
+            print(f&quot;  {icon} {i}. {subtask['name']}&quot;)
+
+
+await main()
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br></div></div><p>通过这个示例，你可以看到：</p> <ol><li><strong>自主创建计划</strong>：Agent 使用 <code>create_plan</code> 工具自动规划调研任务。</li> <li><strong>灵活执行</strong>：遇到竞品分析工具失效时，Agent 自动调整策略，转而使用 <code>google_search</code>。</li> <li><strong>进度追踪</strong>：使用 <code>finish_subtask</code> 标记完成的任务。</li> <li><strong>完整闭环</strong>：从规划创建到任务完成的全流程。</li></ol> <p>这正是 PlanNotebook 为 Agent 带来的核心能力：将其从&quot;流程执行者&quot;提升为&quot;问题解决者&quot;。</p> <blockquote><p><strong>扩展阅读：生产级框架</strong></p> <p>像 AgentScope 和 LangChain 这样的开源框架，都提供了实现这种“规划-执行”循环的机制。它们允许你定义一系列工具，然后让大模型作为规划器 (Planner) 来决定在每一步应该调用哪个工具，并将工具返回的结果作为后续思考的输入，从而实现复杂的任务拆解和执行。在阿里云机器学习平台 PAI 上，你可以方便地部署和管理这些框架所需的大模型服务，为 Agent 提供强大的“大脑”。</p></blockquote> <h3 id="_3-4-执行-agent-生成的规划"><a href="#_3-4-执行-agent-生成的规划" class="header-anchor">#</a> 3.4 执行 Agent 生成的规划</h3> <p>那么，如何让大模型生成一份机器可以理解和执行的“计划”呢？</p> <p>最简单的方式，是让它生成自然语言的步骤列表。但这样做，下游的执行程序很难精确解析。你之前在让 Agent 调用工具时学过，可以使用结构化的 <strong>JSON 格式</strong> 输出工具调用参数。这里，你也可以把“执行计划”看作调用工具。每一个步骤都是一个定义清晰的对象，包含要调用的工具名和对应的参数。</p> <div class="language-json line-numbers-mode"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;plan&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;step&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;thought&quot;</span><span class="token operator">:</span> <span class="token string">&quot;我首先需要分析行业需求，这是课程定位的关键。&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;tool_name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;search_industry_demand&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;tool_params&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">&quot;topic&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Python 基础&quot;</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;step&quot;</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;thought&quot;</span><span class="token operator">:</span> <span class="token string">&quot;接下来，我尝试分析竞品课程的大纲。&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;tool_name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;analyze_competitor_course&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;tool_params&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">&quot;url&quot;</span><span class="token operator">:</span> <span class="token string">&quot;some-site.com/python-course&quot;</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><p>这是一种有效的方法，但它的表达能力有限。如果计划中需要包含“如果竞品分析失败，则改用谷歌搜索”这样的条件逻辑，简单的 JSON 列表就难以胜任了。</p> <p>为了表达更复杂的逻辑，你可以让大模型<strong>直接生成代码 (Code as Action)</strong> 来表达其计划，再通过调用“代码解释器”这个工具来执行代码。</p> <div class="language-plaintext line-numbers-mode"><pre class="language-plaintext"><code># Plan generated by LLM
+def execute_research_plan():
+    # Step 1: Analyze industry demand
+    demand_result = search_industry_demand(topic=&quot;Python 基础&quot;)
+    print(demand_result)
+
+    # Step 2: Analyze competitor course
+    competitor_result = analyze_competitor_course(url=&quot;some-site.com/python-course&quot;)
+
+    # Step 3: Handle analysis failure
+    if not competitor_result.success and &quot;无法解析&quot; in competitor_result.message:
+        print(&quot;竞品分析工具失效，正在寻找备选方案...&quot;)
+        search_results = google_search(query=&quot;some-site.com python course syllabus&quot;)
+        # Assume search_results gives a PDF link
+        pdf_url = extract_pdf_link(search_results) 
+        if pdf_url:
+            syllabus_text = extract_text_from_pdf(url=pdf_url)
+            print(syllabus_text)
+    else:
+        print(competitor_result)
+
+execute_research_plan()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><p>通过生成代码，大模型可以利用编程语言内置的丰富能力（如变量、条件判断、循环）和强大的第三方库（如 Pandas）来制定和执行极其复杂的计划。这使得 Agent 不仅能应对简单的线性流程，还能处理包含逻辑判断和数据处理的复杂场景。</p> <h3 id="_3-5-进阶-让-agent-创建新工具"><a href="#_3-5-进阶-让-agent-创建新工具" class="header-anchor">#</a> 3.5 进阶：让 Agent 创建新工具</h3> <p>你已经掌握了让大模型通过生成代码来制定计划的强大方法。这种方式赋予了 Agent 运用变量、条件判断和循环等复杂逻辑的能力。</p> <p>但这里还有一个潜在的瓶颈：Agent 仍然受限于你预先提供给它的<strong>工具集</strong>。如果它在执行计划时，发现需要一个你并未提供的新工具，比如一个用于计算不同技术关键词在招聘网站上出现频率的函数，它该怎么办？</p> <p>最直接的办法是让 Agent 停下来，请求你（开发者）为它编写这个新工具。但这中断了任务的自主流程。让我们更进一步思考：既然 Agent 已经能够生成用于<strong>规划</strong>的代码，它是否也能生成用于<strong>创造新能力</strong>的代码呢？</p> <p>这便引出了一种更高级的规划能力：<strong>动态创造工具 (Dynamic Tool Creation)</strong>。</p> <p>要实现这一点，你需要在提供具体业务工具（如 <code>analyze_competitor_course</code>）之外，再为 Agent 提供一个核心的“元工具”：<strong>代码执行环境 (Code Interpreter)</strong>。</p> <p>当 Agent 识别到现有工具无法满足需求时，它的规划会包含一系列特殊的步骤：</p> <ol><li><strong>决策</strong>：大模型分析任务，识别出需要一个当前不存在的新工具。</li> <li><strong>生成代码</strong>：在它的计划中，它会编写一段代码来定义、测试并封装一个新的工具函数。</li> <li><strong>调用新工具</strong>：在新工具于代码执行环境中被成功创建后，Agent 可以在后续的计划步骤中直接调用它，就好像这个工具一开始就存在一样。</li> <li><strong>扩展工具库</strong>：这个新生成的工具可以被加入到本次任务的临时工具库中，供后续步骤复用。</li></ol> <img src="https://img.alicdn.com/imgextra/i4/O1CN01CmFXKH1jIVImcsWQh_!!6000000004525-55-tps-1430-373.svg" width="700"> <p>下面是使用 AgentScope 构建的一个简单示例，Agent 可以在规划过程中，基于已有的 <code>add</code> 工具，自主创建并注册一个 <code>factorial</code>（阶乘）工具，并在后续任务中调用它。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;&quot;&quot;AgentScope Agent自主创建工具 - 精简版&quot;&quot;&quot;
+import asyncio
+import os
+import sys
+from io import StringIO
+
+from agentscope.agent import ReActAgent
+from agentscope.formatter import DashScopeChatFormatter
+from agentscope.memory import InMemoryMemory
+from agentscope.message import Msg, TextBlock
+from agentscope.model import DashScopeChatModel
+from agentscope.tool import Toolkit, ToolResponse
+
+# 全局工具箱
+toolkit = None
+
+
+async def code_exec(code: str) -&gt; ToolResponse:
+    &quot;&quot;&quot;代码解释器 - 用于创建和注册新工具&quot;&quot;&quot;
+    global toolkit
+    
+    namespace = {
+        'ToolResponse': ToolResponse,
+        'TextBlock': TextBlock,
+        'asyncio': asyncio,
+        'agent_toolkit': toolkit,
+        'math': __import__('math'),
+    }
+    
+    stdout, sys.stdout = sys.stdout, StringIO()
+    
+    try:
+        exec(code, namespace)
+        output = sys.stdout.getvalue()
+        sys.stdout = stdout
+        return ToolResponse(content=[TextBlock(
+            type=&quot;text&quot;, 
+            text=output or &quot;✅ 执行成功&quot;
+        )])
+    except Exception as e:
+        sys.stdout = stdout
+        return ToolResponse(content=[TextBlock(
+            type=&quot;text&quot;,
+            text=f&quot;❌ 错误: {e}&quot;
+        )])
+
+
+async def add(a: float, b: float) -&gt; ToolResponse:
+    &quot;&quot;&quot;加法工具&quot;&quot;&quot;
+    return ToolResponse(content=[TextBlock(
+        type=&quot;text&quot;, 
+        text=f&quot;{a} + {b} = {a + b}&quot;
+    )])
+
+
+async def main():
+    if &quot;DASHSCOPE_API_KEY&quot; not in os.environ:
+        print(&quot;❌ 请设置 DASHSCOPE_API_KEY&quot;)
+        return
+    
+    global toolkit
+    toolkit = Toolkit()
+    toolkit.register_tool_function(add)
+    toolkit.register_tool_function(code_exec)
+    
+    agent = ReActAgent(
+        name=&quot;ToolMaker&quot;,
+        sys_prompt=(
+            &quot;你可以通过 code_exec 创建新工具。\n&quot;
+            &quot;模板:\n&quot;
+            &quot;async def tool_name(param: type) -&gt; ToolResponse:\n&quot;
+            &quot;    '''描述'''\n&quot;
+            &quot;    result = ...\n&quot;
+            &quot;    return ToolResponse(content=[TextBlock(type='text', text=f'{result}')])\n&quot;
+            &quot;agent_toolkit.register_tool_function(tool_name)\n&quot;
+            &quot;print('✅ 已注册 tool_name')&quot;
+        ),
+        model=DashScopeChatModel(
+            model_name=&quot;qwen-plus&quot;,
+            api_key=os.environ.get(&quot;DASHSCOPE_API_KEY&quot;),
+        ),
+        formatter=DashScopeChatFormatter(),
+        toolkit=toolkit,
+        memory=InMemoryMemory(),
+    )
+    
+    print(&quot;=&quot; * 60)
+    print(&quot;🚀 Agent 自主创建工具演示&quot;)
+    print(&quot;=&quot; * 60)
+    
+    # 使用现有工具
+    print(&quot;\n▶️ 场景1: 使用现有工具&quot;)
+    await agent(Msg(&quot;user&quot;, &quot;计算 30 + 45&quot;, &quot;user&quot;))
+    
+    # 创建新工具
+    print(&quot;\n▶️ 场景2: 创建阶乘工具&quot;)
+    await agent(Msg(&quot;user&quot;, &quot;创建 factorial 工具计算阶乘&quot;, &quot;user&quot;))
+    
+    # 使用新工具
+    print(&quot;\n▶️ 场景3: 使用新工具&quot;)
+    await agent(Msg(&quot;user&quot;, &quot;用 factorial 计算 5 的阶乘&quot;, &quot;user&quot;))
+    
+    # 显示工具箱
+    print(&quot;\n📦 最终工具箱:&quot;)
+    for i, s in enumerate(toolkit.get_json_schemas(), 1):
+        print(f&quot;{i}. {s['function']['name']}&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    await main()
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br></div></div><p>通过提供代码解释器，你将 Agent 从一个单纯的工具<strong>使用者</strong>，提升为了一个工具<strong>创造者</strong>。它的能力边界不再被你预先定义的工具集所束缚，从而具备了真正的创造性和问题解决的适应性。</p> <h3 id="_3-6-何时选择自主规划"><a href="#_3-6-何时选择自主规划" class="header-anchor">#</a> 3.6 何时选择自主规划？</h3> <p>你已经了解了“固定工作流”和“自主规划”两种模式，你可能会问：我是不是应该在所有场景下都使用更智能的自主规划，彻底放弃固定工作流？</p> <p>这样想是不对的。自主性更高的模式不是银弹，自主性更低的模式也有广泛的应用场景。在生产实践中，一种非常有效的最佳实践是采用**“探索-固化”混合模式**。</p> <p>这种模式将任务处理分为两个阶段：</p> <ol><li><p><strong>探索阶段</strong>：对于新出现的、流程不明确的任务（例如，你需要调研一个全新的、之前从未接触过的小众技术领域），你无法预先定义一个完美的流程。这时，就应该派出自主规划 Agent。它的任务是探索解决问题的不同路径，调用它认为合适的工具，即便过程中会犯错或走到死胡同，最终的目标是找到一条能稳定解决问题的方案。</p></li> <li><p><strong>固化阶段</strong>：当自主规划 Agent 经过多次探索，验证并总结出一条稳定、高效的解决方案路径后（例如，它发现“先用A工具从特定网站爬取信息，再用B工具进行数据清洗，最后用C工具生成总结报告”的流程成功率最高），你就可以将这条被验证过的路径<strong>抽象并固化</strong>下来，封装成一个可靠的“固定工作流”，用于后续大规模、重复性的生产调用。</p></li></ol> <p>这样，你就建立了一个持续优化的正向循环。</p> <blockquote><p><strong>预告</strong>：在第 7 章&quot;Agent Skills&quot;中，你将通过一个真实的教程审查任务，
+亲身体验自主 Agent 的能力边界，并学习如何将专家知识封装为 Skill 来突破这些限制。</p></blockquote> <h3 id="_3-7-案例分析-让-agent-操作网页"><a href="#_3-7-案例分析-让-agent-操作网页" class="header-anchor">#</a> 3.7 案例分析：让 Agent 操作网页</h3> <p>为了让你更具体地理解这种“感知-规划-行动”循环在实际产品中的应用，让我们来看一个高自主性网页操作 Agent 的案例，例如开源项目 Browser Use。</p> <p>传统的网页自动化（RPA）工具需要为每个网站、每个任务编写固定的操作脚本。一旦网站界面稍有改动，脚本就会失效，维护成本极高。</p> <p>一个具备规划能力的 Agent 则可以从根本上解决这个问题。它不依赖固定的脚本，而是像人一样<strong>理解</strong>用户的目标，并<strong>感知</strong>当前的网页状态，动态地<strong>规划</strong>出下一步操作。</p> <p><strong>执行流程拆解：</strong>
+当用户给出指令 “在亚马逊上搜索关于 AI 的书籍” 时：</p> <ol><li><strong>理解与初步规划</strong>：LLM 将模糊的目标分解为一系列高阶步骤：“1. 打开亚马逊网站；2. 找到搜索框；3. 输入'AI书籍'；4. 点击搜索；5. 分析结果。”</li> <li><strong>行动与感知</strong>：Agent 执行第一步（打开网站）。然后它“感知”新页面——这不仅是看 HTML 代码，还可能包括分析截图的视觉布局，来理解页面上有哪些元素。</li> <li><strong>决策与再规划</strong>：基于感知到的信息，它决策下一步行动：找到那个看起来最像“搜索框”的输入区域。如果页面上有多个输入框，它会根据位置、标签等信息进行推理判断。</li> <li><strong>循环执行</strong>：它持续这个“感知-规划-行动”的循环，直到完成所有步骤，并返回搜索到的书籍列表。</li> <li><strong>异常处理</strong>：如果在任何一步遇到意外，比如点击搜索后弹出一个验证码，它不会卡住。它会感知到这个新情况，并将“处理验证码”作为一个新的障碍插入到当前计划中，尝试解决它或向用户求助。</li></ol> <img src="https://img.alicdn.com/imgextra/i4/O1CN01s7aonw1cWyVP50Hc2_!!6000000003609-55-tps-1909-375.svg" width="700"> <p>这个案例完整地展示了规划型 Agent 的核心优势：它不再是脚本执行器，而是通过持续的“感知-规划-行动”循环，实现了对动态、未知网页环境的真正<strong>自适应</strong>操作。</p> <h3 id="_3-8-总结"><a href="#_3-8-总结" class="header-anchor">#</a> 3.8 总结</h3> <p>让我们回顾一下你在本节学到的知识：</p> <ul><li><p><strong>固定工作流的局限性</strong>：面对如“工具失效”等预期外的障碍时，预先设定的固定流程会“卡住”，因为它缺乏适应性。简单地为每个意外增加分支会让流程变得复杂且难以维护。</p></li> <li><p><strong>“规划”是核心解法</strong>：模仿人类解决问题的方式，我们让 Agent 从“任务执行者”升级为“解决方案规划师”。它不再被动执行固定步骤，而是围绕用户的最终“目标”，自主地动态生成和调整行动计划。</p></li> <li><p><strong>将计划转化为行动</strong>：你可以引导大模型生成结构化的计划（如JSON或代码），让机器精确执行。更高阶的方法是为 Agent 提供代码解释器，使其能在规划中动态创造并使用新工具，突破预设能力的限制。</p></li> <li><p><strong>在稳定与灵活间权衡</strong>：“自主规划”适用于探索未知、流程多变的创新任务，而“固定工作流”则保障核心业务的稳定和效率。在生产环境中，你需要结合人机协作、探索-固化等策略，根据具体业务需求，在这两种模式间做出明智的选择。</p></li></ul> <h2 id="🔥-课后小测验"><a href="#🔥-课后小测验" class="header-anchor">#</a> 🔥 课后小测验</h2> <h3 id="🔍-单选题-3-2-1"><a href="#🔍-单选题-3-2-1" class="header-anchor">#</a> 🔍 单选题 3.2.1</h3> <details><summary style="cursor:pointer;padding:12px;border:1px solid #dee2e6;border-radius:6px;"><b>你开发了一个&quot;课程前期调研&quot;Agent，使用固定工作流并行调用三个工具：行业分析、用户画像、竞品分析。上线后竞品网站改版导致爬虫工具频繁失败，整个流程卡死。你该如何改进❓</b> <ul><li>A. 为竞品分析工具增加重试机制，失败时自动重试三次后报错退出</li> <li>B. 在工作流中为每个工具失败场景都预设分支处理逻辑和降级方案</li> <li>C. 将固定工作流改为Plan &amp; Execute模式，让Agent根据目标自主规划并动态应对异常</li> <li>D. 更换为更稳定的竞品数据API服务商，从数据源层面消除工具失败的可能</li></ul> <p><strong>【点击查看答案】</strong></p></summary><p></p> <div style="margin-top:10px;padding:15px;border:1px solid #dee2e6;border-radius:0 0 6px 6px;"><p>✅ <strong>参考答案：C</strong>
+📝 <strong>解析</strong>：
+A只是延迟失败，网站改版后重试也无法成功。B方向对但手段弱，为每种异常预设分支会让工作流复杂度急剧膨胀，且无法穷举所有意外。D是理想化方案，现实中无法保证任何外部服务永远可用。C是正解：Plan &amp; Execute模式让Agent从&quot;执行者&quot;变为&quot;规划者&quot;，面对工具失败时能自主调整计划（如改用其他信息源或跳过该步骤），从架构层面获得适应性。
+</p></div></details><p></p> <h2 id="✉️-评价反馈"><a href="#✉️-评价反馈" class="header-anchor">#</a> ✉️ 评价反馈</h2> <p>欢迎你参与<a href="https://survey.aliyun.com/apps/zhiliao/Mo5O9vuie" target="_blank" rel="noopener noreferrer">阿里云大模型ACP课程问卷<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 反馈学习体验和课程评价。
+你的批评和鼓励都是我们前进的动力！</p></div></div>  <div class="page-edit"><div class="edit-link"><a href="https://github.com/Merrizee/edit/master/docs/07.大模型/01.阿里云大模型ACP整理/03.构建Agent系统/02.让Agent学会规划与执行.md" target="_blank" rel="noopener noreferrer">编辑</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="tags"><a href="/tags/?tag=%E5%A4%A7%E6%A8%A1%E5%9E%8B" title="标签">#大模型</a><a href="/tags/?tag=ACP%E8%AE%A4%E8%AF%81" title="标签">#ACP认证</a><a href="/tags/?tag=%E9%98%BF%E9%87%8C%E4%BA%91" title="标签">#阿里云</a></div> <!----></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/llm/agent/basics/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">Agent 基础与工具调用</div></a> <a href="/llm/agent/multi-agent/" class="page-nav-centre page-nav-centre-next"><div class="tooltip">用多 Agent 实现团队协作</div></a></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/llm/agent/basics/" class="prev">Agent 基础与工具调用</a></span> <span class="next"><a href="/llm/agent/multi-agent/">用多 Agent 实现团队协作</a>→
+      </span></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/pages/feign-principle/"><div>
+            feign原理
+            <!----></div></a> <span class="date">07-15</span></dt></dl><dl><dd>02</dd> <dt><a href="/pages/git-team-standard/"><div>
+            团队Git分支管理、迭代发布、分批投产标准化规范
+            <!----></div></a> <span class="date">07-15</span></dt></dl><dl><dd>03</dd> <dt><a href="/pages/interview-notes/"><div>
+            面试问题备忘
+            <!----></div></a> <span class="date">07-07</span></dt></dl> <dl><dd></dd> <dt><a href="/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><div class="icons"><a href="mailto:malize175@gmail.com" title="发邮件" target="_blank" class="iconfont icon-youjian"></a><a href="https://github.com/Merrizee" title="GitHub" target="_blank" class="iconfont icon-github"></a></div> 
+  Theme by
+  <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a> 
+    | Copyright © 2023-2026
+    <span>Malize | <a href="https://github.com/Merrizee" target="_blank">GitHub</a> | <a href="http://beian.miit.gov.cn/" target="_blank">桂ICP备2024034950号</a> | <a href="https://beian.mps.gov.cn/#/query/webSearch?code=45142202000030" rel="noreferrer" target="_blank">桂公网安备45142202000030</a></span></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">
+          跟随系统
+        </li><li class="iconfont icon-rijianmoshi">
+          浅色模式
+        </li><li class="iconfont icon-yejianmoshi">
+          深色模式
+        </li><li class="iconfont icon-yuedu">
+          阅读模式
+        </li></ul></div></div> <!----> <!----> <!----></div><div class="global-ui"><div></div></div></div>
+    <script src="/assets/js/app.10a775db.js" defer></script><script src="/assets/js/2.d12d855f.js" defer></script><script src="/assets/js/82.a11be4eb.js" defer></script>
+  </body>
+</html>
