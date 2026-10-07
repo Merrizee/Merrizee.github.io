@@ -206,6 +206,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             text: '成长学习',
             items: [
               { text: '学习方法', link: '/pages/f2a556/' },
+              { text: '英语学习：奥格登 850 词', link: '/growth/english/ogden-basic-850/' },
               { text: '敏捷开发实战', link: '/pages/aea6571b7a8bae86/' },
               { text: '提示词工程', link: '/pages/831e6f/' },
             ],
