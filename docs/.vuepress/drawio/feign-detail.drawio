@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="Claude Code" version="21.7.5">
+  <diagram name="Spring Cloud OpenFeign 源码完整架构" id="feign-detail">
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1700" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ===== TITLE ===== -->
+        <mxCell id="title" value="Spring Cloud OpenFeign 源码架构全流程图" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="8" width="600" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== TOP-LEFT: @EnableFeignClients ===== -->
+        <mxCell id="en1" value="@EnableFeignClients" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="50" width="190" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="en1note" value="启动Feign客户端自动注册&#xa;basePackages / clients 指定扫描范围" style="text;html=1;strokeColor=none;fillColor=#fce8e8;fontSize=9;align=left;rounded=1;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="30" y="102" width="190" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== TOP: ImportBeanDefinitionRegistrar interface ===== -->
+        <mxCell id="ibdr" value="&lt;&lt;interface&gt;&gt;&#xa;ImportBeanDefinitionRegistrar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;fontStyle=3;" vertex="1" parent="1">
+          <mxGeometry x="540" y="40" width="240" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FeignClientsRegistrar ===== -->
+        <mxCell id="fcr" value="FeignClientsRegistrar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="50" width="210" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="efcr_ibdr" value="implements" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;fontSize=9;" edge="1" source="fcr" target="ibdr" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="een1_fcr" value="@Import" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;fontStyle=1;" edge="1" source="en1" target="fcr" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== TOP-RIGHT: @FeignClient ===== -->
+        <mxCell id="fc_ann" value="@FeignClient" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="50" width="160" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- @FeignClient attributes right panel -->
+        <mxCell id="fc_attr" value="&lt;b&gt;@FeignClient 注解属性&lt;/b&gt;&#xa;─────────────────────&#xa;name/value   →  服务名 (Ribbon/服务发现)&#xa;contextId    →  多实例时区分 Context&#xa;url          →  指定直连地址 (可选)&#xa;path         →  请求路径前缀&#xa;configuration→  自定义配置类数组&#xa;fallback     →  降级实现类&#xa;fallbackFactory → 降级工厂类&#xa;qualifier    →  Bean 别名&#xa;primary      →  是否为主 Bean (默认 true)&#xa;decode404    →  404 是否 decode 而非抛异常" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="120" width="290" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="efc_ann_attr" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fc_ann" target="fc_attr" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== REGISTER METHODS ROW ===== -->
+        <mxCell id="reg_def" value="registerDefaultConfiguration()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="155" width="220" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="reg_fc" value="registerFeignClients()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="155" width="200" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="efcr_regdef" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fcr" target="reg_def" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="efcr_regfc" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fcr" target="reg_fc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FeignClientSpecification ===== -->
+        <mxCell id="fcs_def" value="FeignClientSpecification&#xa;(defaultConfiguration)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="200" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="ereg_fcs" value="注册默认配置" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="reg_def" target="fcs_def" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="scan_note" value="扫描 basePackages 下所有&#xa;@FeignClient 注解接口&#xa;逐个调用 registerFeignClient()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="1">
+          <mxGeometry x="390" y="235" width="210" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="ereg_scan" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="reg_fc" target="scan_note" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== GREEN BOX: FeignClientFactoryBean BeanDefinition ===== -->
+        <mxCell id="gbx" value="FeignClientFactoryBean  BeanDefinition  (注册到 BeanDefinitionRegistry)" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;startSize=30;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="130" width="390" height="320" as="geometry"/>
+        </mxCell>
+
+        <!-- Blue header: implements -->
+        <mxCell id="gbx_h1" value="实现接口 (FactoryBean / InitializingBean / ApplicationContextAware)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6c8ebf;strokeColor=#4a6a9f;fontColor=#ffffff;fontSize=10;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="36" width="374" height="24" as="geometry"/>
+        </mxCell>
+
+        <!-- Properties header -->
+        <mxCell id="gbx_h2" value="主要字段" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#6d9b3a;fontColor=#ffffff;fontSize=10;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="66" width="374" height="22" as="geometry"/>
+        </mxCell>
+
+        <!-- Properties rows -->
+        <mxCell id="gbx_r1" value="String name / contextId" style="text;html=1;strokeColor=#c3d9c3;fillColor=#eaf5ea;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="90" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_r2" value="Class&lt;?&gt; type    (接口 Class 类型)" style="text;html=1;strokeColor=#c3d9c3;fillColor=#ffffff;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="112" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_r3" value="String url / path" style="text;html=1;strokeColor=#c3d9c3;fillColor=#eaf5ea;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="134" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_r4" value="Class&lt;?&gt;[] configuration" style="text;html=1;strokeColor=#c3d9c3;fillColor=#ffffff;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="156" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_r5" value="Class&lt;?&gt; fallback / fallbackFactory" style="text;html=1;strokeColor=#c3d9c3;fillColor=#eaf5ea;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="178" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_r6" value="boolean decode404 / primary" style="text;html=1;strokeColor=#c3d9c3;fillColor=#ffffff;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="200" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_r7" value="FeignContext context    (子 ApplicationContext)" style="text;html=1;strokeColor=#c3d9c3;fillColor=#eaf5ea;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="222" width="374" height="22" as="geometry"/>
+        </mxCell>
+
+        <!-- Key method -->
+        <mxCell id="gbx_h3" value="核心方法" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#6d9b3a;fontColor=#ffffff;fontSize=10;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="250" width="374" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="gbx_m1" value="getObject()   →  创建 Feign JDK 动态代理实例" style="text;html=1;strokeColor=#c3d9c3;fillColor=#ffe6cc;fontSize=10;align=left;" vertex="1" parent="gbx">
+          <mxGeometry x="8" y="274" width="374" height="24" as="geometry"/>
+        </mxCell>
+
+        <!-- Edge: scan → green box -->
+        <mxCell id="escan_gbx" value="注册 BeanDefinition" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="scan_note" target="gbx" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Edge: @FeignClient → green box -->
+        <mxCell id="efc_gbx" value="属性映射" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="fc_ann" target="gbx" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FeignContext ===== -->
+        <mxCell id="fctx" value="FeignContext" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="160" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="nctx" value="NamedContextFactory&lt;FeignClientSpecification&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;fontStyle=3;" vertex="1" parent="1">
+          <mxGeometry x="220" y="365" width="270" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="efctx_nctx" value="extends" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;fontSize=9;" edge="1" source="fctx" target="nctx" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="efcs_fctx" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fcs_def" target="fctx" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fctx_note" value="• 为每个 FeignClient 维护独立子 ApplicationContext&#xa;• 按需创建并缓存子 Context (懒加载)&#xa;• 子 Context 优先使用 @FeignClient.configuration&#xa;  再 fallback 到 FeignClientsConfiguration 默认配置" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=left;" vertex="1" parent="1">
+          <mxGeometry x="20" y="420" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="efctx_note" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fctx" target="fctx_note" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== AUTO-CONFIGURATION boxes ===== -->
+        <mxCell id="fauto" value="FeignAutoConfiguration" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="360" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="fcc" value="FeignClientsConfiguration&#xa;(默认 SpringEncoder / SpringDecoder&#xa; SpringMvcContract / Slf4jLogger)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="420" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="efauto_fcc" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fauto" target="fcc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== RUNTIME PHASE DIVIDER ===== -->
+        <mxCell id="divider" value="──────────────────  运行时阶段  ──────────────────" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="200" y="510" width="700" height="24" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== getObject() trigger ===== -->
+        <mxCell id="gobj" value="FeignClientFactoryBean.getObject()&#xa;Spring 容器初始化 / 首次依赖注入时触发" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="545" width="340" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="egbx_gobj" value="触发创建" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="gbx" target="gobj" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="efctx_gobj" value="提供子 Context" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="fctx" target="gobj" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Feign.Builder ===== -->
+        <mxCell id="fbuilder" value="Feign.Builder" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;startSize=28;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="640" width="600" height="185" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_enc" value="Encoder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="10" y="36" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_dec" value="Decoder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="135" y="36" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_con" value="Contract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="260" y="36" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_log" value="Logger / Level" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="385" y="36" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_cli" value="Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="510" y="36" width="80" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_ri" value="RequestInterceptor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="10" y="78" width="145" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_ret" value="Retryer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="170" y="78" width="100" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_ed" value="ErrorDecoder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="285" y="78" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_opt" value="Options (超时)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="410" y="78" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_ihf" value="InvocationHandlerFactory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="10" y="120" width="175" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_qde" value="QueryMapEncoder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="200" y="120" width="140" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_cap" value="Capability (链路追踪等)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="fbuilder">
+          <mxGeometry x="355" y="120" width="175" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb_note" value="从 FeignContext (子 ApplicationContext) 中获取以上各组件" style="text;html=1;strokeColor=none;fillColor=none;fontSize=9;fontStyle=2;align=center;" vertex="1" parent="fbuilder">
+          <mxGeometry x="10" y="155" width="580" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="egobj_fb" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="gobj" target="fbuilder" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="efcc_fb" value="注入默认组件" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="fcc" target="fbuilder" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== url 判断 ===== -->
+        <mxCell id="url_q" value="url 是否为空?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="565" y="876" width="160" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="efb_urlq" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="fbuilder" target="url_q" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== loadBalance path ===== -->
+        <mxCell id="lb_path" value="loadBalance()&#xa;负载均衡模式" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1000" width="170" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="eurlq_lb" value="url 为空 (服务名)" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="url_q" target="lb_path" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== target path ===== -->
+        <mxCell id="tgt_path" value="target()&#xa;直连模式" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="1000" width="170" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="eurlq_tgt" value="url 非空 (直连)" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="url_q" target="tgt_path" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FeignLoadBalancerAutoConfiguration ===== -->
+        <mxCell id="flbac" value="FeignLoadBalancerAutoConfiguration&#xa;/ FeignRibbonClientAutoConfiguration" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="990" width="250" height="46" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== LoadBalancerFeignClient ===== -->
+        <mxCell id="lbfc" value="LoadBalancerFeignClient&#xa;(Spring Cloud LoadBalancer)&#xa;wrap 底层 okhttp / httpclient" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="1105" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="elb_lbfc" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="lb_path" target="lbfc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="eflbac_lbfc" value="注入" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="flbac" target="lbfc" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Client.Default ===== -->
+        <mxCell id="cdef" value="Client.Default&#xa;(HttpURLConnection)&#xa;or OkHttp / ApacheHttpClient" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="1105" width="230" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="etgt_cdef" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="tgt_path" target="cdef" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== OkHttp / HttpClient conditional ===== -->
+        <mxCell id="http_note" value="OkHttpClient / ApacheHttpClient&#xa;(引入对应依赖时自动替换)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="1105" width="230" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="ecdef_http" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;" edge="1" source="cdef" target="http_note" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== HardCodedTarget ===== -->
+        <mxCell id="hct" value="HardCodedTarget&lt;T&gt;&#xa;封装 serviceId + url + type (接口Class)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1230" width="380" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="elbfc_hct" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="lbfc" target="hct" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ecdef_hct" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" source="cdef" target="hct" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== ReflectiveFeign ===== -->
+        <mxCell id="rfeign" value="ReflectiveFeign.newInstance(target)&#xa;JDK 动态代理 → 生成接口实现代理对象并注入 Spring 容器" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="1335" width="480" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="ehct_rf" value="build().newInstance()" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="hct" target="rfeign" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== InvocationHandler note ===== -->
+        <mxCell id="ih_note" value="InvocationHandler&#xa;FeignInvocationHandler" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="930" y="1340" width="180" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="erf_ih" value="dispatch 分发" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;dashed=1;" edge="1" source="rfeign" target="ih_note" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== SynchronousMethodHandler ===== -->
+        <mxCell id="smh" value="SynchronousMethodHandler" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;startSize=28;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="1435" width="540" height="162" as="geometry"/>
+        </mxCell>
+        <mxCell id="smh_1" value="① 构建 RequestTemplate  (URL / Header / Body 模板)" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;align=left;" vertex="1" parent="smh">
+          <mxGeometry x="10" y="35" width="520" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="smh_2" value="② 遍历 List&lt;RequestInterceptor&gt;.apply(template)" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;align=left;" vertex="1" parent="smh">
+          <mxGeometry x="10" y="58" width="520" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="smh_3" value="③ Encoder.encode()  序列化请求体" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;align=left;" vertex="1" parent="smh">
+          <mxGeometry x="10" y="81" width="520" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="smh_4" value="④ Client.execute(request, options)  发送 HTTP 请求" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;align=left;" vertex="1" parent="smh">
+          <mxGeometry x="10" y="104" width="520" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="smh_5" value="⑤ Decoder.decode(response) / ErrorDecoder 处理非 2xx" style="text;html=1;strokeColor=none;fillColor=none;fontSize=10;align=left;" vertex="1" parent="smh">
+          <mxGeometry x="10" y="127" width="520" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="erf_smh" value="方法调用时拦截" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="rfeign" target="smh" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Retry box ===== -->
+        <mxCell id="retry_note" value="Retryer.continueOrPropagate()&#xa;异常时按策略重试" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="960" y="1460" width="210" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="esmh_retry" value="IOException" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;fontSize=9;" edge="1" source="smh" target="retry_note" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== RESPONSE / SUCCESS ===== -->
+        <mxCell id="resp_ok" value="✓  返回 Java 对象 (Decoder 解码)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="1650" width="320" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="esmh_ok" value="2xx 成功" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="smh" target="resp_ok" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FALLBACK ===== -->
+        <mxCell id="fallback" value="Fallback / FallbackFactory&#xa;(Hystrix / Sentinel 降级)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1650" width="220" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="esmh_fb" value="非 2xx / 异常" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#d79b00;fontSize=9;" edge="1" source="smh" target="fallback" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FeignException ===== -->
+        <mxCell id="fex" value="FeignException (抛出给调用方)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1720" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="efb_fex" value="无降级" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" edge="1" source="fallback" target="fex" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,38 @@
+// 主题色 - 保留用户橙调
+$accentColor = #D97757
+$activeColor = #C2623E
+$arrowBgColor = #ccc
+$bannerTextColor = #09090b
+
+// 布局
+$navbarHeight = 3.6rem
+$sidebarWidth = 18rem
+$contentWidth = 860px
+$homePageWidth = 1100px
+$rightMenuWidth = 230px
+
+// 浅色模式 - Zinc 调色板（参考 shareai.run）
+.theme-mode-light
+  --bodyBg: #ffffff
+  --mainBg: rgba(255,255,255,1)
+  --sidebarBg: rgba(255,255,255,1)
+  --blurBg: rgba(255,255,255,.96)
+  --textColor: #09090b
+  --textLightenColor: #D97757
+  --borderColor: #e4e4e7
+  --codeBg: #f4f4f5
+  --codeColor: #3f3f46
+  codeThemeLight()
+
+// 深色模式 - Zinc 深色调色板
+.theme-mode-dark
+  --bodyBg: #09090b
+  --mainBg: rgba(24,24,27,1)
+  --sidebarBg: rgba(24,24,27,.98)
+  --blurBg: rgba(24,24,27,.92)
+  --textColor: #fafafa
+  --textLightenColor: #D97757
+  --borderColor: #27272a
+  --codeBg: #18181b
+  --codeColor: #d4d4d8
+  codeThemeDark()

@@ -1,0 +1,26 @@
+# npm
+node_modules
+
+# yarn
+yarn.lock
+yarn-error.log
+
+# pnpm
+pnpm-lock.yaml
+
+# vscode
+.vscode
+.idea/
+
+# vuepress
+docs/.vuepress/dist
+docs/.vuepress/.cache/
+docs/.vuepress/.temp/
+docs/.vuepress/config.bundled_*.mjs
+docs/.vuepress/config.bundled_*.cjs
+
+# 百度链接推送
+urls.txt
+
+# mac
+.DS_Store
