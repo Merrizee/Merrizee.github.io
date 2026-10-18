@@ -102,6 +102,23 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         ],
       },
       {
+        text: '大模型学习',
+        link: '/llm-learning/',
+        items: [
+          {
+            text: 'MCP',
+            items: [
+              { text: 'MCP 学习导航', link: '/llm-learning/mcp/' },
+              { text: '概念与运行机制', link: '/llm-learning/mcp/basics/' },
+              { text: 'draw.io 源码与画图调用链', link: '/llm-learning/mcp/drawio/' },
+              { text: 'MCP、插件与 MCP Apps', link: '/llm-learning/mcp/plugins-apps/' },
+              { text: '开发与数据采集实践', link: '/llm-learning/mcp/development/' },
+              { text: '离线渲染与内网部署', link: '/llm-learning/mcp/offline/' },
+            ],
+          },
+        ],
+      },
+      {
         text: '大模型',
         link: '/llm/',
         items: [
